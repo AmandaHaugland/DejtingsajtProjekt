@@ -1,0 +1,66 @@
+﻿@model DejtingsajtProjekt.Models.ProfileViewModels
+ 
+
+@{
+    ViewBag.Title = "Profile";
+}
+@if (HttpContext.Current.User.Identity.Name != null)
+{
+
+    var doesProfileExist = Model.Exists;
+  
+        if (doesProfileExist)
+         
+
+        {
+           <h2>Index</h2>
+
+           <div>
+               <h4>ProfileViewModels</h4>
+               <hr />
+               <dl class="dl-horizontal">
+                   <dt>
+                       @Html.DisplayNameFor(model => model.Firstname)
+                   </dt>
+           
+                   <dd>
+                       @Html.DisplayFor(model => model.Firstname)
+                   </dd>
+           
+                   <dt>
+                       @Html.DisplayNameFor(model => model.Lastname)
+                   </dt>
+           
+                   <dd>
+                       @Html.DisplayFor(model => model.Lastname)
+                   </dd>
+           
+                   <dt>
+                       @Html.DisplayNameFor(model => model.Birthday)
+                   </dt>
+           
+                   <dd>
+                       @Html.DisplayFor(model => model.Birthday)
+                   </dd>
+           
+               </dl>
+          </div>
+    } else
+    {
+        <div>
+            @Html.Partial("UpdateProfile")
+        </div>
+    }
+} else
+{
+    /*Detta funkar inte just nu.....*/
+    <h2>Get started</h2>
+    <p>Create an account today to get started, or login to admire your profile!</p>
+    <button>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</button>
+    <Button>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</Button>
+    
+}
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
