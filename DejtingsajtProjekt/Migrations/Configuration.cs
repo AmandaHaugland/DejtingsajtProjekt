@@ -9,16 +9,21 @@ namespace DejtingsajtProjekt.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
+            
+
             ContextKey = "DejtingsajtProjekt.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(DejtingsajtProjekt.Models.ApplicationDbContext context)
+       protected override void Seed(DejtingsajtProjekt.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
         }
+
+        
     }
 }

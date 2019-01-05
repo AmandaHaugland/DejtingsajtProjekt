@@ -16,5 +16,8 @@ namespace DejtingsajtProjekt.Models
         public DateTime? Birthday { get; set; }
 
         public bool Exists { get; set; }
+
+      public string ImageName { get; set; }
+        public IEnumerable<string> GalleryImage { get; set; }
     }
 }

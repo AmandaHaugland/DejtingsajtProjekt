@@ -28,6 +28,7 @@ namespace DejtingsajtProjekt.Controllers
                 Firstname = currentProfile?.Firstname,
                 Lastname = currentProfile?.Lastname,
                 Birthday = currentProfile?.Birthday,
+               // ImageName = currentProfile?.ImageName,
                 Exists = exists
             });
         }
@@ -45,7 +46,10 @@ namespace DejtingsajtProjekt.Controllers
                     UserId = currentUser,
                     Firstname = model.Firstname,
                     Lastname = model.Lastname,
-                    Birthday = model.Birthday.Value
+                    Birthday = model.Birthday.Value,
+
+                   // ImageName = model.ImageName
+
 
                 });
             }
@@ -54,6 +58,8 @@ namespace DejtingsajtProjekt.Controllers
                 currentProfile.Firstname = model.Firstname;
                 currentProfile.Lastname = model.Lastname;
                 currentProfile.Birthday = model.Birthday.Value;
+               // currentProfile.ImageName = model.ImageName;
+
             }
             profileCtx.SaveChanges();
 
@@ -75,5 +81,14 @@ namespace DejtingsajtProjekt.Controllers
                 return true;
             }
         }
+
+       //För att redigera anvendarens profil
+        public ActionResult EditProfile ()
+        {
+            ProfileViewModels modell;
+            modell = new ProfileViewModels();
+            return View(modell);
+        }
     }
+
 }
