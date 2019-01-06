@@ -1,0 +1,15 @@
+﻿@using DejtingsajtProjekt.Models
+
+@model ProfileListViewModel
+
+<h2>Profiles</h2>
+<table>
+    @foreach( var profile in Model.Profiles)
+    {
+        <tr>
+            <td>@profile.Firstname</td>
+            <td>@profile.Lastname</td>
+            <td>@profile.Birthday</td>
+        </tr>
+    }
+</table>

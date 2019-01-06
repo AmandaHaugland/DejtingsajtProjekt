@@ -89,6 +89,17 @@ namespace DejtingsajtProjekt.Controllers
             modell = new ProfileViewModels();
             return View(modell);
         }
+
+
+        public ActionResult ProfileList()
+        {
+            var ctx = new ProfileDbContext();
+
+            var viewModel = new ProfileListViewModel {
+                Profiles = ctx.Profiles.ToList() };
+
+            return View(viewModel);
+        }
     }
 
 }
