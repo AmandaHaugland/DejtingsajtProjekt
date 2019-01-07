@@ -8,6 +8,8 @@ namespace DejtingsajtProjekt.Models
 {
     public class ProfileViewModels
     {
+        public string ProfileId { get; set; }
+
         public string Firstname { get; set; }
 
         public string Lastname { get; set; }

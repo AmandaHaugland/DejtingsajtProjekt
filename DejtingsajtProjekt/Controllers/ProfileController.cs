@@ -100,6 +100,18 @@ namespace DejtingsajtProjekt.Controllers
 
             return View(viewModel);
         }
+
+        public ActionResult UserProfile(string id)
+        {
+            var ctx = new ProfileDbContext();
+            var profile = ctx.Profiles.FirstOrDefault(p => p.UserId == id);
+            return View(new ProfileViewModels
+            {
+                Firstname = profile?.Firstname,
+                Lastname = profile?.Lastname,
+                Birthday = profile?.Birthday
+            });
+        }
     }
 
 }
