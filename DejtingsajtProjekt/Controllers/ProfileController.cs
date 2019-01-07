@@ -33,6 +33,8 @@ namespace DejtingsajtProjekt.Controllers
             });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(ProfileViewModels model)
         {
             var profileCtx = new ProfileDbContext();
@@ -55,9 +57,17 @@ namespace DejtingsajtProjekt.Controllers
             }
             else
             {
-                currentProfile.Firstname = model.Firstname;
-                currentProfile.Lastname = model.Lastname;
-                currentProfile.Birthday = model.Birthday.Value;
+                currentProfile.Firstname = model.Firstname ?? currentProfile.Firstname;
+                currentProfile.Lastname = model.Lastname ?? currentProfile.Lastname;
+                if(model.Birthday == null)
+                {
+                    currentProfile.Birthday = currentProfile.Birthday;
+                }
+                else
+                {
+                    currentProfile.Birthday = model.Birthday.Value;
+                }
+                
                // currentProfile.ImageName = model.ImageName;
 
             }
