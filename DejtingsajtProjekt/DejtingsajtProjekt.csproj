@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201901041909540_AddImageName.Designer.cs">
       <DependentUpon>201901041909540_AddImageName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901072035377_AddedDescription.cs" />
+    <Compile Include="Migrations\201901072035377_AddedDescription.Designer.cs">
+      <DependentUpon>201901072035377_AddedDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -305,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901041909540_AddImageName.resx">
       <DependentUpon>201901041909540_AddImageName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901072035377_AddedDescription.resx">
+      <DependentUpon>201901072035377_AddedDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

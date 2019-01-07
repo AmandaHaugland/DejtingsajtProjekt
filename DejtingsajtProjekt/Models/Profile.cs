@@ -16,6 +16,8 @@ namespace DejtingsajtProjekt.Models
         public string Lastname { get; set; }
         public DateTime Birthday { get; set; }
 
+       // public string Description { get; set; }
+
       //  public string ImageName { get; set; }
 
     }
