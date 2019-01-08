@@ -201,21 +201,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201812302119098_InitialCreate.cs" />
-    <Compile Include="Migrations\201812302119098_InitialCreate.Designer.cs">
-      <DependentUpon>201812302119098_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201901081216576_Initial.cs" />
+    <Compile Include="Migrations\201901081216576_Initial.Designer.cs">
+      <DependentUpon>201901081216576_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901041909540_AddImageName.cs" />
-    <Compile Include="Migrations\201901041909540_AddImageName.Designer.cs">
-      <DependentUpon>201901041909540_AddImageName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901072035377_AddedDescription.cs" />
-    <Compile Include="Migrations\201901072035377_AddedDescription.Designer.cs">
-      <DependentUpon>201901072035377_AddedDescription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201901081145488_DBnowVisible.cs" />
-    <Compile Include="Migrations\201901081145488_DBnowVisible.Designer.cs">
-      <DependentUpon>201901081145488_DBnowVisible.cs</DependentUpon>
+    <Compile Include="Migrations\201901081220211_AddedDescription.cs" />
+    <Compile Include="Migrations\201901081220211_AddedDescription.Designer.cs">
+      <DependentUpon>201901081220211_AddedDescription.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -307,17 +299,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201812302119098_InitialCreate.resx">
-      <DependentUpon>201812302119098_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901081216576_Initial.resx">
+      <DependentUpon>201901081216576_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901041909540_AddImageName.resx">
-      <DependentUpon>201901041909540_AddImageName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901072035377_AddedDescription.resx">
-      <DependentUpon>201901072035377_AddedDescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081145488_DBnowVisible.resx">
-      <DependentUpon>201901081145488_DBnowVisible.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901081220211_AddedDescription.resx">
+      <DependentUpon>201901081220211_AddedDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
