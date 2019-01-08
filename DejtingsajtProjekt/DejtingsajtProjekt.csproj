@@ -213,6 +213,10 @@
     <Compile Include="Migrations\201901072035377_AddedDescription.Designer.cs">
       <DependentUpon>201901072035377_AddedDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901081145488_DBnowVisible.cs" />
+    <Compile Include="Migrations\201901081145488_DBnowVisible.Designer.cs">
+      <DependentUpon>201901081145488_DBnowVisible.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -312,6 +316,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901072035377_AddedDescription.resx">
       <DependentUpon>201901072035377_AddedDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081145488_DBnowVisible.resx">
+      <DependentUpon>201901081145488_DBnowVisible.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
