@@ -287,7 +287,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\UpdateProfile.cshtml" />
-    <Content Include="Views\Profile\EditProfile.cshtml" />
     <Content Include="Views\Profile\ProfileList.cshtml" />
     <Content Include="Views\Profile\UserProfile.cshtml" />
   </ItemGroup>

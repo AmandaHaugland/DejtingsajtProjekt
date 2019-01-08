@@ -93,12 +93,12 @@ namespace DejtingsajtProjekt.Controllers
         }
 
        //För att redigera anvendarens profil
-        public ActionResult EditProfile ()
+      /*  public ActionResult EditProfile ()
         {
             ProfileViewModels modell;
             modell = new ProfileViewModels();
             return View(modell);
-        }
+        }*/
 
 
         public ActionResult ProfileList()
