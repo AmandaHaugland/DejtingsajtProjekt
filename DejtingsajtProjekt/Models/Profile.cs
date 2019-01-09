@@ -18,13 +18,32 @@ namespace DejtingsajtProjekt.Models
 
         public string Description { get; set; }
 
+        public virtual ICollection<Friend> Friends { get; set; }
+        public ProfileModel()
+        {
+            Friends = new HashSet<Friend>();
+        }
+
       //  public string ImageName { get; set; }
 
+    }
+
+     public class Friend
+    {
+        [Key]
+        public string Id { get; set; }
+
+        public string FriendId { get; set; }
+        public bool FriendshipAccepted { get; set; }
+
+        public string ReciverId { get; set; }
+        public virtual ProfileModel  ProfileModel { get; set; }
     }
 
     public class ProfileDbContext : DbContext
     {
         public DbSet<ProfileModel> Profiles { get; set; }
+        public DbSet<Friend> Friends { get; set; }
 
         public ProfileDbContext() : base("ProfileDb") { }
     }

@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201901081220211_AddedDescription.Designer.cs">
       <DependentUpon>201901081220211_AddedDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901091804581_AddingFriends.cs" />
+    <Compile Include="Migrations\201901091804581_AddingFriends.Designer.cs">
+      <DependentUpon>201901091804581_AddingFriends.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -304,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901081220211_AddedDescription.resx">
       <DependentUpon>201901081220211_AddedDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901091804581_AddingFriends.resx">
+      <DependentUpon>201901091804581_AddingFriends.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
