@@ -124,8 +124,44 @@ namespace DejtingsajtProjekt.Controllers
                 Firstname = profile?.Firstname,
                 Lastname = profile?.Lastname,
                 Birthday = profile?.Birthday,
-                Description = profile?.Description
+                Description = profile?.Description,
+                ProfileId = profile?.UserId
             });
+        }
+
+
+        //Metod för att lägga till vänner
+        public void SendFriendRequest(string id)
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+           // var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+            var recieverProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == id);
+            
+            //var lastFriend = recieverProfile.Friends.LastOrDefault();
+            //var lastId = 0;
+            //if(lastFriend == null)
+            //{
+            //     lastId = 0;
+            //}
+            //else
+            //{
+            //    lastId = lastFriend.Id + 1;
+            //}
+            
+
+            recieverProfile.Friends.Add(new Friend
+            {
+                //Id = lastId,
+                Sender = currentUser,
+                FriendshipAccepted = false,
+                Reciver = id,
+                
+                
+            });
+            
+            ctx.SaveChanges();
+            //return Redirect(Request.UrlReferrer.ToString());
         }
     }
 

@@ -3,10 +3,14 @@
 @model ProfileViewModels
 
 
-{
-    <h2> @Model.Firstname @Model.Lastname 's Profile</h2>
 
-<p>
-    @Model.Description
-</p>
-}
+<h2> @Model.Firstname @Model.Lastname 's Profile</h2>
+<h3>Add as friend</h3>
+<h1> @Model.ProfileId hhhh</h1>
+  <input type="button" value="Send a friendrequest" onclick="location.href='@Url.Action("SendFriendRequest", "Profile", new { id = Model.ProfileId } )'" /> 
+
+  <p>
+
+      @HttpContext.Current.Request.Url.Query
+      @Model.Description
+  </p>

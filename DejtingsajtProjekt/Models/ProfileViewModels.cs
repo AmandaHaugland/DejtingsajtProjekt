@@ -23,6 +23,8 @@ namespace DejtingsajtProjekt.Models
 
       public string ImageName { get; set; }
         public IEnumerable<string> GalleryImage { get; set; }
+
+        public List<Friend> Friends { get; set; }
     }
 
     public class ProfileListViewModel

@@ -213,6 +213,22 @@
     <Compile Include="Migrations\201901091804581_AddingFriends.Designer.cs">
       <DependentUpon>201901091804581_AddingFriends.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901091834529_RenamingColumnInFriend.cs" />
+    <Compile Include="Migrations\201901091834529_RenamingColumnInFriend.Designer.cs">
+      <DependentUpon>201901091834529_RenamingColumnInFriend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901092051025_RenamingColumn.cs" />
+    <Compile Include="Migrations\201901092051025_RenamingColumn.Designer.cs">
+      <DependentUpon>201901092051025_RenamingColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901092131472_FriendIdNowInt.cs" />
+    <Compile Include="Migrations\201901092131472_FriendIdNowInt.Designer.cs">
+      <DependentUpon>201901092131472_FriendIdNowInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901092219444_TryingToGetFriendIdToWOrk.cs" />
+    <Compile Include="Migrations\201901092219444_TryingToGetFriendIdToWOrk.Designer.cs">
+      <DependentUpon>201901092219444_TryingToGetFriendIdToWOrk.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -311,6 +327,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901091804581_AddingFriends.resx">
       <DependentUpon>201901091804581_AddingFriends.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901091834529_RenamingColumnInFriend.resx">
+      <DependentUpon>201901091834529_RenamingColumnInFriend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901092051025_RenamingColumn.resx">
+      <DependentUpon>201901092051025_RenamingColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901092131472_FriendIdNowInt.resx">
+      <DependentUpon>201901092131472_FriendIdNowInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901092219444_TryingToGetFriendIdToWOrk.resx">
+      <DependentUpon>201901092219444_TryingToGetFriendIdToWOrk.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -31,12 +32,13 @@ namespace DejtingsajtProjekt.Models
      public class Friend
     {
         [Key]
-        public string Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
-        public string FriendId { get; set; }
+        public string Sender { get; set; }
         public bool FriendshipAccepted { get; set; }
 
-        public string ReciverId { get; set; }
+        public string Reciver { get; set; }
         public virtual ProfileModel  ProfileModel { get; set; }
     }
 
