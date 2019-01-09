@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity;
 
 namespace DejtingsajtProjekt.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProfileController : Controller
     {
         // GET: Profile
@@ -114,6 +114,7 @@ namespace DejtingsajtProjekt.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public ActionResult UserProfile(string id)
         {
             var ctx = new ProfileDbContext();
