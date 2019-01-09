@@ -28,6 +28,7 @@ namespace DejtingsajtProjekt.Controllers
                 Firstname = currentProfile?.Firstname,
                 Lastname = currentProfile?.Lastname,
                 Birthday = currentProfile?.Birthday,
+                Description = currentProfile?.Description,
                // ImageName = currentProfile?.ImageName,
                 Exists = exists
             });
@@ -49,6 +50,7 @@ namespace DejtingsajtProjekt.Controllers
                     Firstname = model.Firstname,
                     Lastname = model.Lastname,
                     Birthday = model.Birthday.Value,
+                    Description = model.Description
 
                    // ImageName = model.ImageName
 
@@ -59,6 +61,7 @@ namespace DejtingsajtProjekt.Controllers
             {
                 currentProfile.Firstname = model.Firstname ?? currentProfile.Firstname;
                 currentProfile.Lastname = model.Lastname ?? currentProfile.Lastname;
+                currentProfile.Description = model.Description ?? currentProfile.Description;
                 if(model.Birthday == null)
                 {
                     currentProfile.Birthday = currentProfile.Birthday;
@@ -119,7 +122,8 @@ namespace DejtingsajtProjekt.Controllers
             {
                 Firstname = profile?.Firstname,
                 Lastname = profile?.Lastname,
-                Birthday = profile?.Birthday
+                Birthday = profile?.Birthday,
+                Description = profile?.Description
             });
         }
     }
