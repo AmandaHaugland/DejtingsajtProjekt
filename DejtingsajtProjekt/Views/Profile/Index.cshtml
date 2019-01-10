@@ -1,5 +1,5 @@
 ﻿@model DejtingsajtProjekt.Models.ProfileViewModels
- 
+
 
 @{
     ViewBag.Title = "Profile";
@@ -8,60 +8,68 @@
 {
 
     var doesProfileExist = Model.Exists;
-  
-        if (doesProfileExist)
-         
 
-        {
-           <h2>Index</h2>
+    if (doesProfileExist)
 
-           <div>
-               
-               <hr />
-               <dl class="dl-horizontal">
-                   <dt>
-                       @Html.DisplayNameFor(model => model.Firstname)
-                   </dt>
-           
-                   <dd>
-                       @Html.DisplayFor(model => model.Firstname)
-                   </dd>
-           
-                   <dt>
-                       @Html.DisplayNameFor(model => model.Lastname)
-                   </dt>
-           
-                   <dd>
-                       @Html.DisplayFor(model => model.Lastname)
-                   </dd>
-           
-                   <dt>
-                       @Html.DisplayNameFor(model => model.Birthday)
-                   </dt>
-           
-                   <dd>
-                       @Html.DisplayFor(model => model.Birthday)
-                   </dd>
-           
-               </dl>
-          </div>
-          <h3>About me</h3>
-          <p>@Html.DisplayFor( model => model.Description)</p>
-    } else
+
     {
+        <h2>Index</h2>
+
         <div>
-            <h2>Create your profile to get started!</h2>
-            @Html.Partial("UpdateProfile")
+
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Firstname)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Firstname)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Lastname)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Lastname)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Birthday)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Birthday)
+                </dd>
+
+            </dl>
         </div>
+        <h3>About me</h3>
+        <p>@Html.DisplayFor(model => model.Description)</p>
+
+        <h3>Friends</h3>
+
+
+
     }
-} else
-{
-    /*Detta funkar inte just nu.....*/
+            else
+            {
+        < div >
+            < h2 > Create your profile to get started!</ h2 >
+               @Html.Partial("UpdateProfile")
+
+           </ div >
+                }
+        }
+        else
+        {
+            /*Detta funkar inte just nu.....*/
     <h2>Get started</h2>
     <p>Create an account today to get started, or login to admire your profile!</p>
     <button>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</button>
     <Button>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</Button>
-    
+
 }
 
 

@@ -31,4 +31,12 @@ namespace DejtingsajtProjekt.Models
     {
         public List<ProfileModel> Profiles { get; set; }
     }
+
+    public class FriendListViewModel
+    {
+        public string UserId { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public int RequestId { get; set; }
+    }
 }

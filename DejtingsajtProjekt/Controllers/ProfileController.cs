@@ -137,22 +137,11 @@ namespace DejtingsajtProjekt.Controllers
             var currentUser = User.Identity.GetUserId();
            // var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
             var recieverProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == id);
-            
-            //var lastFriend = recieverProfile.Friends.LastOrDefault();
-            //var lastId = 0;
-            //if(lastFriend == null)
-            //{
-            //     lastId = 0;
-            //}
-            //else
-            //{
-            //    lastId = lastFriend.Id + 1;
-            //}
-            
+
 
             recieverProfile.Friends.Add(new Friend
             {
-                //Id = lastId,
+
                 Sender = currentUser,
                 FriendshipAccepted = false,
                 Reciver = id,
@@ -161,8 +150,60 @@ namespace DejtingsajtProjekt.Controllers
             });
             
             ctx.SaveChanges();
-            //return Redirect(Request.UrlReferrer.ToString());
+
         }
+
+        public ActionResult FriendRequest()
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            var listOfProfilesInFriendList = currentProfile.Friends.Where(f => !f.FriendshipAccepted);
+            var listOfFriends = new List<FriendListViewModel>();
+            foreach (var friend in listOfProfilesInFriendList)
+            {
+                var friendsProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == friend.Sender);
+                var friendModel = new FriendListViewModel
+                {
+                    Firstname = friendsProfile.Firstname,
+                    Lastname = friendsProfile.Lastname,
+                    UserId = friend.Reciver,
+                    RequestId = friend.FriendId
+
+                };
+                listOfFriends.Add(friendModel);
+
+            }
+
+            return View(listOfFriends);
+        }
+
+        public ActionResult FriendList()
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            var listOfProfilesInFriendList = currentProfile.Friends.Where(f => f.FriendshipAccepted);
+            var listOfFriends = new List<FriendListViewModel>();
+           foreach(var friend in listOfProfilesInFriendList)
+            {
+                var friendsProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == friend.Sender);
+                var friendModel = new FriendListViewModel
+                {
+                    Firstname = friendsProfile.Firstname,
+                    Lastname = friendsProfile.Lastname,
+                    UserId = friend.Reciver
+                };
+                listOfFriends.Add(friendModel);
+
+            }
+
+            return View(listOfFriends);
+        }
+
+        
     }
 
 }
