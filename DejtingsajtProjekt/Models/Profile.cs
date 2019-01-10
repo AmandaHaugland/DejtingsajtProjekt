@@ -33,7 +33,7 @@ namespace DejtingsajtProjekt.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int FriendId { get; set; }
 
         public string Sender { get; set; }
         public bool FriendshipAccepted { get; set; }

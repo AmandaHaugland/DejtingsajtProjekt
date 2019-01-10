@@ -229,6 +229,10 @@
     <Compile Include="Migrations\201901092219444_TryingToGetFriendIdToWOrk.Designer.cs">
       <DependentUpon>201901092219444_TryingToGetFriendIdToWOrk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901100918497_RenamingFriendKey.cs" />
+    <Compile Include="Migrations\201901100918497_RenamingFriendKey.Designer.cs">
+      <DependentUpon>201901100918497_RenamingFriendKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -339,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901092219444_TryingToGetFriendIdToWOrk.resx">
       <DependentUpon>201901092219444_TryingToGetFriendIdToWOrk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901100918497_RenamingFriendKey.resx">
+      <DependentUpon>201901100918497_RenamingFriendKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
