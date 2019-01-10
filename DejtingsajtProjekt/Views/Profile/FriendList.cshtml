@@ -4,14 +4,16 @@
 
 <h2>Friends</h2>
 
-    @foreach (var item in Model)
-    {
-    
+@foreach (var item in Model)
+{
 
-        <a class=" list-group-item" href="/Profile/UserProfile/@item.UserId">
-            @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
-        </a>
-    }
+
+<a class=" list-group-item" href="/Profile/UserProfile/@item.UserId">
+    @Html.DisplayFor(modelItem => item.Firstname) @Html.DisplayFor(modelItem => item.Lastname)
+</a>
+    <input type="button" value="Remove" onclick="location.href='@Url.Action("RemoveFriend", "Profile", new { requestId = item.RequestId } )'" />
+
+}
 
 
 

@@ -194,13 +194,42 @@ namespace DejtingsajtProjekt.Controllers
                 {
                     Firstname = friendsProfile.Firstname,
                     Lastname = friendsProfile.Lastname,
-                    UserId = friend.Reciver
+                    UserId = friend.Reciver,
+                    RequestId = friend.FriendId
                 };
                 listOfFriends.Add(friendModel);
 
             }
 
             return View(listOfFriends);
+        }
+
+        public ActionResult AcceptFriend (int requestId)
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            var request = currentProfile.Friends.FirstOrDefault(r => r.FriendId == requestId);
+
+            request.FriendshipAccepted = true;
+
+            ctx.SaveChanges();
+            return RedirectToAction("FriendList");
+        }
+
+        public ActionResult RemoveFriend (int requestId)
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            var request = currentProfile.Friends.FirstOrDefault(r => r.FriendId == requestId);
+
+            currentProfile.Friends.Remove(request);
+            
+            ctx.SaveChanges();
+            return RedirectToAction("FriendList");
         }
 
         
