@@ -214,6 +214,19 @@ namespace DejtingsajtProjekt.Controllers
 
             request.FriendshipAccepted = true;
 
+            var senderProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == request.Sender);
+
+
+            senderProfile.Friends.Add(new Friend
+            {
+
+                Sender = currentUser,
+                FriendshipAccepted = true,
+                Reciver = request.Sender,
+
+
+            });
+
             ctx.SaveChanges();
             return RedirectToAction("FriendList");
         }
@@ -226,8 +239,15 @@ namespace DejtingsajtProjekt.Controllers
 
             var request = currentProfile.Friends.FirstOrDefault(r => r.FriendId == requestId);
 
-            currentProfile.Friends.Remove(request);
             
+
+            var otherProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == request.Sender);
+            var otherRequest = otherProfile.Friends.FirstOrDefault(p => p.Reciver == currentUser);
+            if(otherRequest != null)
+            {
+                otherProfile.Friends.Remove(otherRequest);
+            }
+            currentProfile.Friends.Remove(request);
             ctx.SaveChanges();
             return RedirectToAction("FriendList");
         }
