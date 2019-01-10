@@ -19,7 +19,7 @@ namespace DejtingsajtProjekt.Models
 
         public bool Exists { get; set; }
 
-      public string ImageName { get; set; }
+        public string ImageName { get; set; }
         public IEnumerable<string> GalleryImage { get; set; }
     }
 

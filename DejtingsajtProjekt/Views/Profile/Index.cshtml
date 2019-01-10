@@ -1,69 +1,88 @@
 ﻿@model DejtingsajtProjekt.Models.ProfileViewModels
- 
+
 
 @{
     ViewBag.Title = "Profile";
 }
+
 @if (HttpContext.Current.User.Identity.Name != null)
 {
 
     var doesProfileExist = Model.Exists;
-  
-        if (doesProfileExist)
-         
 
-        {
-           <h2>Index</h2>
+    if (doesProfileExist)
 
-           <div>
-               
-               <hr />
-               <dl class="dl-horizontal">
-                   <dt>
-                       @Html.DisplayNameFor(model => model.Firstname)
-                   </dt>
-           
-                   <dd>
-                       @Html.DisplayFor(model => model.Firstname)
-                   </dd>
-           
-                   <dt>
-                       @Html.DisplayNameFor(model => model.Lastname)
-                   </dt>
-           
-                   <dd>
-                       @Html.DisplayFor(model => model.Lastname)
-                   </dd>
-           
-                   <dt>
-                       @Html.DisplayNameFor(model => model.Birthday)
-                   </dt>
-           
-                   <dd>
-                       @Html.DisplayFor(model => model.Birthday)
-                   </dd>
-           
-               </dl>
-          </div>
-    } else
+
+    {
+        <h2>Index</h2>
+
+        <div>
+
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Firstname)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Firstname)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Lastname)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Lastname)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Birthday)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Birthday)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ImageName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ImageName)
+                </dd>
+
+            </dl>
+        </div>
+
+
+
+    }
+    else
     {
         <div>
             <h2>Create your profile to get started!</h2>
             @Html.Partial("UpdateProfile")
         </div>
     }
-} else
+
+
+}
+else
 {
     /*Detta funkar inte just nu.....*/
     <h2>Get started</h2>
     <p>Create an account today to get started, or login to admire your profile!</p>
     <button>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</button>
     <Button>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</Button>
-    
+
 }
 
+<!--För att visa profil bilden -->
+    <img src="@Html.ViewData["Img"]" alt="image" height="200" width="200" />
 
 <p>
     @Html.ActionLink("Edit", "", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+

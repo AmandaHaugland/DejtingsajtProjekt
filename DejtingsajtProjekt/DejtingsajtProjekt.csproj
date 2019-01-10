@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201901081220211_AddedDescription.Designer.cs">
       <DependentUpon>201901081220211_AddedDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901081251256_AddImageNamn.cs" />
+    <Compile Include="Migrations\201901081251256_AddImageNamn.Designer.cs">
+      <DependentUpon>201901081251256_AddImageNamn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -284,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -304,6 +309,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901081220211_AddedDescription.resx">
       <DependentUpon>201901081220211_AddedDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901081251256_AddImageNamn.resx">
+      <DependentUpon>201901081251256_AddImageNamn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
