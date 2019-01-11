@@ -44,33 +44,28 @@
                     @Html.DisplayFor(model => model.Birthday)
                 </dd>
 
-                <dt>
-                    @Html.DisplayNameFor(model => model.ImageName)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.ImageName)
-                </dd>
-
             </dl>
         </div>
+        <h3>About me</h3>
+        <p>@Html.DisplayFor(model => model.Description)</p>
+
+        <h3>Friends</h3>
 
 
 
     }
-    else
-    {
-        <div>
-            <h2>Create your profile to get started!</h2>
-            @Html.Partial("UpdateProfile")
-        </div>
-    }
+            else
+            {
+        < div >
+            < h2 > Create your profile to get started!</ h2 >
+               @Html.Partial("UpdateProfile")
 
-
-}
-else
-{
-    /*Detta funkar inte just nu.....*/
+           </ div >
+                }
+        }
+        else
+        {
+            /*Detta funkar inte just nu.....*/
     <h2>Get started</h2>
     <p>Create an account today to get started, or login to admire your profile!</p>
     <button>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</button>

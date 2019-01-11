@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace DejtingsajtProjekt.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProfileController : Controller
     {
         // GET: Profile
@@ -32,6 +32,8 @@ namespace DejtingsajtProjekt.Controllers
                 Firstname = currentProfile?.Firstname,
                 Lastname = currentProfile?.Lastname,
                 Birthday = currentProfile?.Birthday,
+                Description = currentProfile?.Description,
+               // ImageName = currentProfile?.ImageName,
                 ImageName = currentProfile?.ImageName,
                 Exists = exists
             });
@@ -63,6 +65,7 @@ namespace DejtingsajtProjekt.Controllers
                     Firstname = model.Firstname,
                     Lastname = model.Lastname,
                     Birthday = model.Birthday.Value,
+                    Description = model.Description
 
                     ImageName = model.ImageName
                 });
@@ -81,6 +84,20 @@ namespace DejtingsajtProjekt.Controllers
 
 
             else
+            {
+                currentProfile.Firstname = model.Firstname ?? currentProfile.Firstname;
+                currentProfile.Lastname = model.Lastname ?? currentProfile.Lastname;
+                currentProfile.Description = model.Description ?? currentProfile.Description;
+                if(model.Birthday == null)
+                {
+                    currentProfile.Birthday = currentProfile.Birthday;
+                }
+                else
+                {
+                    currentProfile.Birthday = model.Birthday.Value;
+                }
+                
+               // currentProfile.ImageName = model.ImageName;
                 {
                     currentProfile.Firstname = model.Firstname ?? currentProfile.Firstname;
                     currentProfile.Lastname = model.Lastname ?? currentProfile.Lastname;
@@ -146,6 +163,7 @@ namespace DejtingsajtProjekt.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public ActionResult UserProfile(string id)
         {
             var ctx = new ProfileDbContext();
@@ -154,8 +172,133 @@ namespace DejtingsajtProjekt.Controllers
             {
                 Firstname = profile?.Firstname,
                 Lastname = profile?.Lastname,
-                Birthday = profile?.Birthday
+                Birthday = profile?.Birthday,
+                Description = profile?.Description,
+                ProfileId = profile?.UserId
             });
+        }
+
+
+        //Metod för att lägga till vänner
+        public void SendFriendRequest(string id)
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+           // var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+            var recieverProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == id);
+
+
+            recieverProfile.Friends.Add(new Friend
+            {
+
+                Sender = currentUser,
+                FriendshipAccepted = false,
+                Reciver = id,
+                
+                
+            });
+            
+            ctx.SaveChanges();
+
+        }
+
+        public ActionResult FriendRequest()
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            var listOfProfilesInFriendList = currentProfile.Friends.Where(f => !f.FriendshipAccepted);
+            var listOfFriends = new List<FriendListViewModel>();
+            foreach (var friend in listOfProfilesInFriendList)
+            {
+                var friendsProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == friend.Sender);
+                var friendModel = new FriendListViewModel
+                {
+                    Firstname = friendsProfile.Firstname,
+                    Lastname = friendsProfile.Lastname,
+                    UserId = friend.Reciver,
+                    RequestId = friend.FriendId
+
+                };
+                listOfFriends.Add(friendModel);
+
+            }
+
+            return View(listOfFriends);
+        }
+
+        public ActionResult FriendList()
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            var listOfProfilesInFriendList = currentProfile.Friends.Where(f => f.FriendshipAccepted);
+            var listOfFriends = new List<FriendListViewModel>();
+           foreach(var friend in listOfProfilesInFriendList)
+            {
+                var friendsProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == friend.Sender);
+                var friendModel = new FriendListViewModel
+                {
+                    Firstname = friendsProfile.Firstname,
+                    Lastname = friendsProfile.Lastname,
+                    UserId = friend.Reciver,
+                    RequestId = friend.FriendId
+                };
+                listOfFriends.Add(friendModel);
+
+            }
+
+            return View(listOfFriends);
+        }
+
+        public ActionResult AcceptFriend (int requestId)
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            var request = currentProfile.Friends.FirstOrDefault(r => r.FriendId == requestId);
+
+            request.FriendshipAccepted = true;
+
+            var senderProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == request.Sender);
+
+
+            senderProfile.Friends.Add(new Friend
+            {
+
+                Sender = currentUser,
+                FriendshipAccepted = true,
+                Reciver = request.Sender,
+
+
+            });
+
+            ctx.SaveChanges();
+            return RedirectToAction("FriendList");
+        }
+
+        public ActionResult RemoveFriend (int requestId)
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            var request = currentProfile.Friends.FirstOrDefault(r => r.FriendId == requestId);
+
+            
+
+            var otherProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == request.Sender);
+            var otherRequest = otherProfile.Friends.FirstOrDefault(p => p.Reciver == currentUser);
+            if(otherRequest != null)
+            {
+                otherProfile.Friends.Remove(otherRequest);
+            }
+            currentProfile.Friends.Remove(request);
+            ctx.SaveChanges();
+            return RedirectToAction("FriendList");
         }
 
      

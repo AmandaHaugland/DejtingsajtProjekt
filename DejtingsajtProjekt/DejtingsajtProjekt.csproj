@@ -209,6 +209,30 @@
     <Compile Include="Migrations\201901081220211_AddedDescription.Designer.cs">
       <DependentUpon>201901081220211_AddedDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901091804581_AddingFriends.cs" />
+    <Compile Include="Migrations\201901091804581_AddingFriends.Designer.cs">
+      <DependentUpon>201901091804581_AddingFriends.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901091834529_RenamingColumnInFriend.cs" />
+    <Compile Include="Migrations\201901091834529_RenamingColumnInFriend.Designer.cs">
+      <DependentUpon>201901091834529_RenamingColumnInFriend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901092051025_RenamingColumn.cs" />
+    <Compile Include="Migrations\201901092051025_RenamingColumn.Designer.cs">
+      <DependentUpon>201901092051025_RenamingColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901092131472_FriendIdNowInt.cs" />
+    <Compile Include="Migrations\201901092131472_FriendIdNowInt.Designer.cs">
+      <DependentUpon>201901092131472_FriendIdNowInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901092219444_TryingToGetFriendIdToWOrk.cs" />
+    <Compile Include="Migrations\201901092219444_TryingToGetFriendIdToWOrk.Designer.cs">
+      <DependentUpon>201901092219444_TryingToGetFriendIdToWOrk.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901100918497_RenamingFriendKey.cs" />
+    <Compile Include="Migrations\201901100918497_RenamingFriendKey.Designer.cs">
+      <DependentUpon>201901100918497_RenamingFriendKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201901081251256_AddImageNamn.cs" />
     <Compile Include="Migrations\201901081251256_AddImageNamn.Designer.cs">
       <DependentUpon>201901081251256_AddImageNamn.cs</DependentUpon>
@@ -285,6 +309,8 @@
     <Content Include="Views\Profile\UpdateProfile.cshtml" />
     <Content Include="Views\Profile\ProfileList.cshtml" />
     <Content Include="Views\Profile\UserProfile.cshtml" />
+    <Content Include="Views\Profile\FriendList.cshtml" />
+    <Content Include="Views\Profile\FriendRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -310,8 +336,23 @@
     <EmbeddedResource Include="Migrations\201901081220211_AddedDescription.resx">
       <DependentUpon>201901081220211_AddedDescription.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201901081251256_AddImageNamn.resx">
-      <DependentUpon>201901081251256_AddImageNamn.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201901091804581_AddingFriends.resx">
+      <DependentUpon>201901091804581_AddingFriends.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901091834529_RenamingColumnInFriend.resx">
+      <DependentUpon>201901091834529_RenamingColumnInFriend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901092051025_RenamingColumn.resx">
+      <DependentUpon>201901092051025_RenamingColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901092131472_FriendIdNowInt.resx">
+      <DependentUpon>201901092131472_FriendIdNowInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901092219444_TryingToGetFriendIdToWOrk.resx">
+      <DependentUpon>201901092219444_TryingToGetFriendIdToWOrk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901100918497_RenamingFriendKey.resx">
+      <DependentUpon>201901100918497_RenamingFriendKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
