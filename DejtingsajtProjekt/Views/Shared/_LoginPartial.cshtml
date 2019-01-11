@@ -10,7 +10,8 @@
         @Html.ActionLink("Friends", "FriendList", "Profile")
     </li>
     <li>
-        @Html.ActionLink("Friend requests", "FriendRequest", "Profile")
+        @{var num = Html.Action("NumberOfFriendRequests", "Profile");}
+        @Html.ActionLink("Friend requests " + num , "FriendRequest", "Profile")
     </li>
     <li>
         @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })

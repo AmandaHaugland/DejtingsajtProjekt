@@ -299,6 +299,22 @@ namespace DejtingsajtProjekt.Controllers
             return RedirectToAction("FriendList");
         }
 
+        public string NumberOfFriendRequests()
+        {
+            var ctx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            var listOfProfilesInFriendList = currentProfile.Friends.Where(f => !f.FriendshipAccepted);
+            var numberAsString = "0";
+            if(listOfProfilesInFriendList != null)
+            {
+                 numberAsString = listOfProfilesInFriendList.Count().ToString();
+            }
+            
+
+            return numberAsString;
+        }
      
 
      /*  [HttpPost]
