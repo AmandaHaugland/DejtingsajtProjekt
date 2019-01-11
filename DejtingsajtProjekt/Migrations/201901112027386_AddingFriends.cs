@@ -11,13 +11,13 @@ namespace DejtingsajtProjekt.Migrations
                 "dbo.Friends",
                 c => new
                     {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        FriendId = c.String(),
+                        FriendId = c.Int(nullable: false, identity: true),
+                        Sender = c.String(),
                         FriendshipAccepted = c.Boolean(nullable: false),
-                        ReciverId = c.String(),
+                        Reciver = c.String(),
                         ProfileModel_UserId = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => t.FriendId)
                 .ForeignKey("dbo.ProfileModels", t => t.ProfileModel_UserId)
                 .Index(t => t.ProfileModel_UserId);
             

@@ -13,7 +13,7 @@ namespace DejtingsajtProjekt.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201901091804581_AddingFriends"; }
+            get { return "201901112027386_AddingFriends"; }
         }
         
         string IMigrationMetadata.Source

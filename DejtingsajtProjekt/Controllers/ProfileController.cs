@@ -47,11 +47,11 @@ namespace DejtingsajtProjekt.Controllers
             var currentUser = User.Identity.GetUserId();
             var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
 
-        
-            string mainconn = ConfigurationManager.ConnectionStrings["ProfileDB"].ConnectionString;
-            SqlConnection sqlConn = new SqlConnection(mainconn);
-            string sqlQuery = "update [dbo].[ProfileModels] set ImageName = '" +"/images/"+ file.FileName + "' where UserId = '" +currentUser+"'";
-            SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
+
+            //  string mainconn = ConfigurationManager.ConnectionStrings["ProfileDB"].ConnectionString;
+            //  SqlConnection sqlConn = new SqlConnection(mainconn);
+            //  string sqlQuery = "update [dbo].[ProfileModels] set ImageName = '" +"/images/"+ file.FileName + "' where UserId = '" +currentUser+"'";
+            //  SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
 
 
             if (currentProfile == null)
@@ -64,20 +64,20 @@ namespace DejtingsajtProjekt.Controllers
                     Birthday = model.Birthday.Value,
                     Description = model.Description,
 
-                   // ImageName = model.ImageName
+                    // ImageName = model.ImageName
                 });
-               
+
             }
 
 
-            sqlConn.Open();
+            //  sqlConn.Open();
 
-            if (file != null && file.ContentLength > 0)
-            {
-                string filename = Path.GetFileName(file.FileName);
-                string imagePath = Path.Combine(Server.MapPath("/images/"), filename);
-                file.SaveAs(imagePath);
-            }
+            //  if (file != null && file.ContentLength > 0)
+            //  {
+            //      string filename = Path.GetFileName(file.FileName);
+            //      string imagePath = Path.Combine(Server.MapPath("/images/"), filename);
+            //      file.SaveAs(imagePath);
+            //  }
 
 
             else
@@ -93,7 +93,7 @@ namespace DejtingsajtProjekt.Controllers
                 {
                     currentProfile.Birthday = model.Birthday.Value;
                 }
-
+            
                 // currentProfile.ImageName = model.ImageName;
                 /*{
                     currentProfile.Firstname = model.Firstname ?? currentProfile.Firstname;
@@ -112,9 +112,9 @@ namespace DejtingsajtProjekt.Controllers
 
                 }
 
-                sqlCommandet.Parameters.AddWithValue("@ImageName", "/images/" + file.FileName);
-                sqlCommandet.ExecuteNonQuery();
-                sqlConn.Close();
+               // sqlCommandet.Parameters.AddWithValue("@ImageName", "/images/" + file.FileName);
+               // sqlCommandet.ExecuteNonQuery();
+               // sqlConn.Close();
 
 
                 profileCtx.SaveChanges();
@@ -305,13 +305,17 @@ namespace DejtingsajtProjekt.Controllers
             var ctx = new ProfileDbContext();
             var currentUser = User.Identity.GetUserId();
             var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
-
-            var listOfProfilesInFriendList = currentProfile.Friends.Where(f => !f.FriendshipAccepted);
             var numberAsString = "0";
-            if(listOfProfilesInFriendList != null)
+            if (currentProfile != null)
+            {
+                var listOfProfilesInFriendList = currentProfile.Friends.Where(f => !f.FriendshipAccepted);
+                
+                if(listOfProfilesInFriendList != null)
             {
                  numberAsString = listOfProfilesInFriendList.Count().ToString();
             }
+            }
+            
             
 
             return numberAsString;

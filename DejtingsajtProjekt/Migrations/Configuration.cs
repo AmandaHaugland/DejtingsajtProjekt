@@ -9,7 +9,7 @@ namespace DejtingsajtProjekt.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(DejtingsajtProjekt.Models.ProfileDbContext context)

@@ -7,13 +7,13 @@ namespace DejtingsajtProjekt.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddedDescription : IMigrationMetadata
+    public sealed partial class AddingMessages : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedDescription));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddingMessages));
         
         string IMigrationMetadata.Id
         {
-            get { return "201901081220211_AddedDescription"; }
+            get { return "201901112029192_AddingMessages"; }
         }
         
         string IMigrationMetadata.Source

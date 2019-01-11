@@ -7,7 +7,6 @@ namespace DejtingsajtProjekt.Migrations
     {
         public override void Up()
         {
-            
             CreateTable(
                 "dbo.ProfileModels",
                 c => new
@@ -16,6 +15,7 @@ namespace DejtingsajtProjekt.Migrations
                         Firstname = c.String(),
                         Lastname = c.String(),
                         Birthday = c.DateTime(nullable: false),
+                        Description = c.String(),
                     })
                 .PrimaryKey(t => t.UserId);
             
