@@ -26,7 +26,7 @@ namespace DejtingsajtProjekt.Models
         }
 
       //  public string ImageName { get; set; }
-        public string ImageName { get; set; }
+      //  public string ImageName { get; set; }
 
     }
 
