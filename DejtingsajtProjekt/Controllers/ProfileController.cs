@@ -34,7 +34,7 @@ namespace DejtingsajtProjekt.Controllers
                 Birthday = currentProfile?.Birthday,
                 Description = currentProfile?.Description,
                // ImageName = currentProfile?.ImageName,
-                ImageName = currentProfile?.ImageName,
+               // ImageName = currentProfile?.ImageName,
                 Exists = exists
             });
         }
@@ -64,7 +64,7 @@ namespace DejtingsajtProjekt.Controllers
                     Birthday = model.Birthday.Value,
                     Description = model.Description,
 
-                    ImageName = model.ImageName
+                   // ImageName = model.ImageName
                 });
                
             }
