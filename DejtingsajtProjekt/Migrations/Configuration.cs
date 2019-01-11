@@ -10,6 +10,7 @@ namespace DejtingsajtProjekt.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "DejtingsajtProjekt.Models.ProfileDbContext";
         }
 
         protected override void Seed(DejtingsajtProjekt.Models.ProfileDbContext context)
