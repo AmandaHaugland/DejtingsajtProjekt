@@ -289,7 +289,7 @@ namespace DejtingsajtProjekt.Controllers
             
 
             var otherProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == request.Sender);
-            var otherRequest = otherProfile.Friends.FirstOrDefault(p => p.Reciver == currentUser);
+            var otherRequest = otherProfile.Friends.FirstOrDefault(p => p.Sender == currentUser);
             if(otherRequest != null)
             {
                 otherProfile.Friends.Remove(otherRequest);
