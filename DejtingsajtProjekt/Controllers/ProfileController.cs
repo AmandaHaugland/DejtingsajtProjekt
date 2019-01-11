@@ -178,7 +178,7 @@ namespace DejtingsajtProjekt.Controllers
 
 
         //Metod för att lägga till vänner
-        public void SendFriendRequest(string id)
+        public ActionResult SendFriendRequest(string id)
         {
             var ctx = new ProfileDbContext();
             var currentUser = User.Identity.GetUserId();
@@ -197,6 +197,7 @@ namespace DejtingsajtProjekt.Controllers
             });
             
             ctx.SaveChanges();
+            return RedirectToAction("Index");
 
         }
 
