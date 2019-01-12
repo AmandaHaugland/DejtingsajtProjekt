@@ -2,6 +2,8 @@
 
 
 @{
+    /**/
+
     ViewBag.Title = "Profile";
 }
 
@@ -49,23 +51,34 @@
         <h3>About me</h3>
         <p>@Html.DisplayFor(model => model.Description)</p>
 
-        <h3>Friends</h3>
+        <table id="reciver-id" value="@Model.ProfileId">
+            <thead>
+                <tr>
+                    <th> Name</th>
+                    <th> Message</th>
+                </tr>
+            </thead>
+            <tbody id="messages"></tbody>
+        </table>
+        @*
+            <input type="hidden" id="reciver-id" value="@Model.ProfileId" />
+        *@
 
 
 
     }
-            else
-            {
+    else
+    {
         < div >
-            < h2 > Create your profile to get started!</ h2 >
-               @Html.Partial("UpdateProfile")
+        < h2 > Create your profile to get started!</ h2 >
+        @Html.Partial("UpdateProfile")
 
-           </ div >
-                }
-        }
-        else
-        {
-            /*Detta funkar inte just nu.....*/
+        </ div >
+    }
+}
+else
+{
+    /*Detta funkar inte just nu.....*/
     <h2>Get started</h2>
     <p>Create an account today to get started, or login to admire your profile!</p>
     <button>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</button>
@@ -74,10 +87,56 @@
 }
 
 <!--För att visa profil bilden -->
-    <img src="@Html.ViewData["Img"]" alt="image" height="200" width="200" />
+<img src="@Html.ViewData["Img"]" alt="image" height="200" width="200" />
 
 <p>
-    @Html.ActionLink("Edit", "", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "", new { /* id = Model.PrimaryKey */ })
     @Html.ActionLink("Back to List", "Index")
 </p>
 
+@section scripts {
+    <script>
+        $(function () {
+            $('#send-message-form').submit(function (ev) {
+                ev.preventDefault();
+                var reciverId = $('#reciver-id').val();
+                var message = $('#message-text').val();
+                if (message !== '') {
+                    //Kommer hit i alla fall. Sen går något inte..
+                    // $.get('/api/profiles/message/add?reciverId=' + reciverId + '&messageText=' + message)
+                    $.get('/api/profiles/message/add?reciverId=' + reciverId + '&messageText=' + message,
+                        function () {
+                            getMessages();
+                        });
+                }
+            });
+
+
+            function getMessages() {
+                //rensa
+                $('#message-text').val('');
+
+                var reciverId = $('#reciver-id').val();
+
+                //Hämta meddelanden
+                $.get('/api/profiles/message/show?reciverId=' + reciverId, function (messagesToShow) {
+                    $('#messages').text('');
+
+                    messagesToShow.forEach(function (message) {
+                        var tableRow = $('<tr>');
+                        tableRow.append(
+                            '<td> <a class="list-group-item" href="/Profile/UserProfile/' + message.SenderId + '">' + message.SenderName
+                            + '</a> </td>'
+                        );
+                        tableRow.append('<td>' + message.MessageText + '</td>');
+                        tableRow.append('</tr>');
+                        //Lägg till i tabellen
+                        $('#messages').append(tableRow);
+                    });
+                });
+
+            }
+            getMessages();
+        });
+    </script>
+}

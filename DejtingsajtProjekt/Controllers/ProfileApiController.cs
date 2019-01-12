@@ -35,9 +35,17 @@ namespace DejtingsajtProjekt.Controllers
         public MessageViewModel[] GetMessages(string reciverId)
         {
             var ctx = new ProfileDbContext();
-            var reciverProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == reciverId);
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+            var listOfMessages = currentProfile.Messages;
 
-            var listOfMessages = reciverProfile.Messages;
+            if (reciverId != null) {
+                var reciverProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == reciverId);
+
+                 listOfMessages = reciverProfile.Messages;
+            } 
+            
+            
             var listMessageViewModel = new List<MessageViewModel>();
             if(listOfMessages != null)
             {
