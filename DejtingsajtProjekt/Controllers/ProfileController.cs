@@ -16,6 +16,7 @@ namespace DejtingsajtProjekt.Controllers
     public class ProfileController : Controller
     {
         // GET: Profile
+        [Authorize]
         public ActionResult Index()
         {
             var profileCtx = new ProfileDbContext();
