@@ -41,4 +41,15 @@ namespace DejtingsajtProjekt.Models
         public string Lastname { get; set; }
         public int RequestId { get; set; }
     }
+
+    public class MessageViewModel
+    {
+        public int MessageId { get; set; }
+
+        public string SenderId { get; set; }
+        public string SenderName { get; set; }
+        public string MessageText { get; set; }
+
+        public string Reciver { get; set; }
+    }
 }

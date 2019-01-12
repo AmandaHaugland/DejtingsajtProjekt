@@ -30,6 +30,35 @@ namespace DejtingsajtProjekt.Controllers
             ctx.SaveChanges();
         }
 
+        [Route("message/show")]
+        [HttpGet]
+        public MessageViewModel[] GetMessages(string reciverId)
+        {
+            var ctx = new ProfileDbContext();
+            var reciverProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == reciverId);
+
+            var listOfMessages = reciverProfile.Messages;
+            var listMessageViewModel = new List<MessageViewModel>();
+            if(listOfMessages != null)
+            {
+                foreach(var message in listOfMessages)
+                {
+                     var senderProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == message.Sender);
+                     var messageToAdd = new MessageViewModel
+                     {
+                         SenderId = message.Sender,
+                         SenderName = senderProfile.Firstname + " " + senderProfile.Lastname,
+                         MessageText = message.MessageText,
+                         MessageId = message.MessageId,
+                         Reciver = message.Reciver
+                     };
+                     listMessageViewModel.Add(messageToAdd);
+                }
+            }
+           var toReturn = listMessageViewModel.ToArray();
+            return toReturn;
+        }
+
 
     }
 }
