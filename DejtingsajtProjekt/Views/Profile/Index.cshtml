@@ -45,7 +45,13 @@
                 <dd>
                     @Html.DisplayFor(model => model.Birthday)
                 </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ImageName)
+                </dt>
+                <dd>
+                    <img src="@Url.Content(Model.ImageName)" alt="Image" style="height:200px;width:200px;" />
 
+                </dd>
             </dl>
         </div>
         <h3>About me</h3>
@@ -86,8 +92,7 @@ else
 
 }
 
-<!--För att visa profil bilden -->
-<img src="@Html.ViewData["Img"]" alt="image" height="200" width="200" />
+
 
 <p>
     @Html.ActionLink("Edit", "", new { /* id = Model.PrimaryKey */ })
