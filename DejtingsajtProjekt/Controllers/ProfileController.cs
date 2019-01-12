@@ -361,38 +361,41 @@ namespace DejtingsajtProjekt.Controllers
 
         }*/
 
-        public ActionResult ProfilImage()
-        {
-            var profileCtx = new ProfileDbContext();
-            var currentUser = User.Identity.GetUserId();
-            var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+        //public ActionResult ProfilImage()
+        //{
+        //    var profileCtx = new ProfileDbContext();
+        //    var currentUser = User.Identity.GetUserId();
+        //    var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
 
-            string imageD = (string)Session["ProfileId"];
-            string mainconn = ConfigurationManager.ConnectionStrings["ProfileDB"].ConnectionString;
-            SqlConnection sqlConn = new SqlConnection(mainconn);
-            string sqlQuery = "select ImageName from  [dbo].[ProfileModels] where UserId='" + currentUser+ "'";
-            sqlConn.Open();
-            SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
-            sqlCommandet.Parameters.AddWithValue("UserId", Session["ProfileId"].ToString());
-            SqlDataReader sdr = sqlCommandet.ExecuteReader();
-            if (sdr.Read())
-            {
-                string s = sdr["ImageName"].ToString();
-                ViewData["Img"] = s;
-            }
+        //    string imageD = (string)Session["ProfileId"];
+        //    string mainconn = ConfigurationManager.ConnectionStrings["ProfileDB"].ConnectionString;
+        //    SqlConnection sqlConn = new SqlConnection(mainconn);
+        //    string sqlQuery = "select ImageName from  [dbo].[ProfileModels] where UserId='" + currentUser+ "'";
+        //    sqlConn.Open();
+        //    SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
+        //    sqlCommandet.Parameters.AddWithValue("UserId", Session["ProfileId"].ToString());
+        //    SqlDataReader sdr = sqlCommandet.ExecuteReader();
+        //    if (sdr.Read())
+        //    {
+        //        string s = sdr["ImageName"].ToString();
+        //        ViewData["Img"] = s;
+        //    }
 
-            sqlConn.Close();
-            return View();
-        }
+        //    sqlConn.Close();
+        //    return View();
+        //}
 
         public ActionResult SearchUser(string firstname)
         {
             ProfileDbContext ctx = new ProfileDbContext();
           
             List<ProfileModel> listOfProfiles = ctx.Profiles.ToList();
-
+            if (!String.IsNullOrEmpty(firstname))
+            {
+                listOfProfiles = ctx.Profiles.Where(p => p.Firstname.Contains(firstname)).ToList();
+            }
           
-            return View(ctx.Profiles.Where(p => p.Firstname.StartsWith(firstname) || firstname == null).ToList());
+            return View(listOfProfiles);
 
         }
 
