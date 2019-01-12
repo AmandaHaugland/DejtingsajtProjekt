@@ -166,14 +166,24 @@ namespace DejtingsajtProjekt.Controllers
         {
             var ctx = new ProfileDbContext();
             var profile = ctx.Profiles.FirstOrDefault(p => p.UserId == id);
-            return View(new ProfileViewModels
+            var currentUser = User.Identity.GetUserId();
+            if(currentUser == id)
             {
-                Firstname = profile?.Firstname,
-                Lastname = profile?.Lastname,
-                Birthday = profile?.Birthday,
-                Description = profile?.Description,
-                ProfileId = profile?.UserId
-            });
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(
+                         new ProfileViewModels
+                     {
+                         Firstname = profile?.Firstname,
+                         Lastname = profile?.Lastname,
+                         Birthday = profile?.Birthday,
+                         Description = profile?.Description,
+                         ProfileId = profile?.UserId
+                     });
+            }
+            
         }
 
 
