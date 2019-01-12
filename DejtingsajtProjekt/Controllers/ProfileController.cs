@@ -52,7 +52,8 @@ namespace DejtingsajtProjekt.Controllers
              SqlConnection sqlConn = new SqlConnection(mainconn);
              string sqlQuery = "update [dbo].[ProfileModels] set ImageName = '" +"/images/"+ file.FileName + "' where UserId = '" +currentUser+"'";
              SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
-
+            string sqlSelect = "select ImageName from [dbo].[ProfileModels] where UserId = ' "+currentUser+"'";
+            
 
             if (currentProfile == null)
             {
@@ -118,7 +119,6 @@ namespace DejtingsajtProjekt.Controllers
 
 
                 profileCtx.SaveChanges();
-
                 return RedirectToAction("Index", "Profile");
 
             
@@ -373,7 +373,7 @@ namespace DejtingsajtProjekt.Controllers
             string sqlQuery = "select ImageName from  [dbo].[ProfileModels] where UserId='" + currentUser+ "'";
             sqlConn.Open();
             SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
-           // sqlCommandet.Parameters.AddWithValue("UserId", Session["ProfileId"].ToString());
+            sqlCommandet.Parameters.AddWithValue("UserId", Session["ProfileId"].ToString());
             SqlDataReader sdr = sqlCommandet.ExecuteReader();
             if (sdr.Read())
             {
@@ -384,6 +384,18 @@ namespace DejtingsajtProjekt.Controllers
             sqlConn.Close();
             return View();
         }
+
+        public ActionResult SearchUser(string firstname)
+        {
+            ProfileDbContext ctx = new ProfileDbContext();
+          
+            List<ProfileModel> listOfProfiles = ctx.Profiles.ToList();
+
+          
+            return View(ctx.Profiles.Where(p => p.Firstname.StartsWith(firstname) || firstname == null).ToList());
+
+        }
+
     }
 
 }

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DejtingsajtProjekt.Models.ProfileModel>
+@{
+    ViewBag.Title = "SearchUser";
+}
+<h2>SearchUser</h2>
+<p>
+    @using (Html.BeginForm("SearchUser", "Profile", FormMethod.Get))
+    {
+        <input type="text" name="search" />
+        <input type="submit" name="submit" value="Search" />
+    }
+</p>
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Birthday)
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Birthday)
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+
