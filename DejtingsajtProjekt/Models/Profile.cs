@@ -27,8 +27,8 @@ namespace DejtingsajtProjekt.Models
             Messages = new HashSet<Message>();
         }
 
-        //public string ImageName { get; set; }
-      //  public string ImageName { get; set; }
+        public string ImageName { get; set; }
+
 
     }
 
