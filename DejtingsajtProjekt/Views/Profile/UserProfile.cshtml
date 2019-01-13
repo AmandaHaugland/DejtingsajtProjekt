@@ -37,8 +37,10 @@
     <tbody id="messages"></tbody>
 </table>
 
+
+
 @section scripts {
-    <script>
+<script>
         $(function () {
             $('#send-message-form').submit(function (ev) {
                 ev.preventDefault();
@@ -66,7 +68,7 @@
                     $('#messages').text('');
 
                     messagesToShow.forEach(function (message) {
-                        var tableRow = $('<tr>');
+                         var tableRow = $('<tr>');
                         tableRow.append(
                             '<td> <a class="list-group-item" href="/Profile/UserProfile/' + message.SenderId + '">' + message.SenderName
                             + '</a> </td>'
@@ -75,12 +77,13 @@
                         tableRow.append('</tr>');
                         //Lägg till i tabellen
                         $('#messages').append(tableRow);
+
                     });
                 });
 
             }
             getMessages();
         });
-    </script>
+</script>
 }
 

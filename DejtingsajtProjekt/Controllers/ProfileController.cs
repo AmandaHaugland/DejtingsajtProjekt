@@ -400,6 +400,47 @@ namespace DejtingsajtProjekt.Controllers
 
         }
 
+        public ActionResult _GetFiveUsers()
+        {
+            /*var ctx = new ProfileDbContext();
+
+            var list = new List<ProfileViewModels>();
+            foreach(var p in ctx.Profiles)
+            {
+                var profileToAdd = new ProfileViewModels
+                {
+                    Lastname = p.Lastname,
+                    Firstname = p.Firstname,
+                    ProfileId = p.UserId
+                };
+                list.Add(profileToAdd);
+            }
+
+            var fiveUsers = list.Take(5);
+
+            return View(fiveUsers);*/
+            
+                var ctx = new ProfileDbContext();
+
+            var fullList = new ProfileListViewModel();
+            if (ctx.Profiles.Count() >= 5)
+            {
+                 fullList = new ProfileListViewModel
+                {
+                    Profiles = ctx.Profiles.Take(5).ToList()
+                };
+
+            } else
+            {
+                fullList = new ProfileListViewModel
+                {
+                    Profiles = ctx.Profiles.ToList()
+                };
+            }
+                return PartialView(fullList);
+            
+        }
+
     }
 
 }

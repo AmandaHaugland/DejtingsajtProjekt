@@ -1,0 +1,14 @@
+﻿@using DejtingsajtProjekt.Models
+
+@model ProfileListViewModel
+
+
+<h2>Some of our users</h2>
+<div class="list-group">
+
+    @foreach (var profile in Model.Profiles)
+    { 
+            <a href="/Profile/UserProfile/@profile.UserId"  class="list-group-item col-sm-3">@profile.Firstname  @profile.Lastname </a> 
+    }
+
+</div>
