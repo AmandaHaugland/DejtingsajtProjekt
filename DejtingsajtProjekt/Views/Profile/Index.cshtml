@@ -9,8 +9,10 @@
 <div>
     @if (Model.ImageName != null)
     {
-        <img src="@Url.Content(Model.ImageName)" alt="Image" style="height:200px;width:200px;" />
+        <img src="@Model.ImageName" alt="Image" style="height:200px;width:200px;" />
     }
+
+
 </div> <br />
 
 @if (HttpContext.Current.User.Identity.Name != null)

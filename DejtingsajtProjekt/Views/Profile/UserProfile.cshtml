@@ -3,7 +3,10 @@
 @model ProfileViewModels
 
 
-
+@if (Model.ImageName != null)
+{
+    <img src="@Model.ImageName" alt="Image" style="height:200px;width:200px;" />
+}
 <h2> @Model.Firstname @Model.Lastname 's Profile</h2> <br />
 <input type="button" value="Send a friendrequest" onclick="location.href='@Url.Action("SendFriendRequest", "Profile", new { id = Model.ProfileId } )'" />
 <h3>Birthday @Model.Birthday</h3>
@@ -40,7 +43,7 @@
 
 
 @section scripts {
-<script>
+    <script>
         $(function () {
             $('#send-message-form').submit(function (ev) {
                 ev.preventDefault();
@@ -68,7 +71,7 @@
                     $('#messages').text('');
 
                     messagesToShow.forEach(function (message) {
-                         var tableRow = $('<tr>');
+                        var tableRow = $('<tr>');
                         tableRow.append(
                             '<td> <a class="list-group-item" href="/Profile/UserProfile/' + message.SenderId + '">' + message.SenderName
                             + '</a> </td>'
@@ -84,6 +87,6 @@
             }
             getMessages();
         });
-</script>
+    </script>
 }
 
