@@ -53,7 +53,7 @@ namespace DejtingsajtProjekt.Controllers
              SqlConnection sqlConn = new SqlConnection(mainconn);
              string sqlQuery = "update [dbo].[ProfileModels] set ImageName = '" +"/images/"+ file.FileName + "' where UserId = '" +currentUser+"'";
              SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
-            string sqlSelect = "select ImageName from [dbo].[ProfileModels] where UserId = ' "+currentUser+"'";
+           // string sqlSelect = "select ImageName from [dbo].[ProfileModels] where UserId = ' "+currentUser+"'";
             
 
             if (currentProfile == null)
