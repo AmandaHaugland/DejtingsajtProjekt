@@ -437,7 +437,7 @@ namespace DejtingsajtProjekt.Controllers
                     Profiles = ctx.Profiles.ToList()
                 };
             }
-                return PartialView(fullList);
+                return View(fullList);
             
         }
 

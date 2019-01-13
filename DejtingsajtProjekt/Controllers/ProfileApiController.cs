@@ -37,6 +37,11 @@ namespace DejtingsajtProjekt.Controllers
             var ctx = new ProfileDbContext();
             var currentUser = User.Identity.GetUserId();
             var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+           if(currentProfile == null)
+            {
+                var listMessageViewModels = new List<MessageViewModel>();
+                return listMessageViewModels.ToArray();
+            }
             var listOfMessages = currentProfile.Messages;
 
             if (reciverId != null) {
