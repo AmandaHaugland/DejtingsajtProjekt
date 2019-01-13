@@ -5,11 +5,13 @@
 <p>
     @using (Html.BeginForm("SearchUser", "Profile", FormMethod.Get))
     {
-    <p>
-        Search: @Html.TextBox("firstname") <br />
-        <!--<input type="text" name="search" />-->
-        <input type="submit" name="submit" value="Search" />
-    </p>
+<p>
+    Search firstname: @Html.TextBox("firstname") <br />
+
+    Search lastname: @Html.TextBox("lastname") <br />
+    <!--<input type="text" name="search" />-->
+    <input type="submit" name="submit" value="Search" />
+</p>
 }
     </p>
 
