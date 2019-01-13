@@ -421,14 +421,14 @@ namespace DejtingsajtProjekt.Controllers
         //    return View();
         //}
 
-        public ActionResult SearchUser(string firstname)
+        public ActionResult SearchUser(string firstname, string lastname)
         {
             ProfileDbContext ctx = new ProfileDbContext();
           
             List<ProfileModel> listOfProfiles = ctx.Profiles.ToList();
-            if (!String.IsNullOrEmpty(firstname))
+            if (!String.IsNullOrEmpty(firstname) || !String.IsNullOrEmpty(lastname))
             {
-                listOfProfiles = ctx.Profiles.Where(p => p.Firstname.Contains(firstname)).ToList();
+                listOfProfiles = ctx.Profiles.Where(p => p.Firstname.Contains(firstname) && p.Lastname.Contains(lastname)).ToList();
             }
           
             return View(listOfProfiles);
