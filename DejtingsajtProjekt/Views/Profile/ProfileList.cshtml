@@ -2,13 +2,24 @@
 
 @model ProfileListViewModel
 
-<h2>Profiles</h2>
-<table>
-    @foreach( var profile in Model.Profiles)
+<p>
+    @using (Html.BeginForm("SearchUser", "Profile", FormMethod.Get))
     {
-    <tr>
-        <td><a class="list-group-item" href="/Profile/UserProfile/@profile.UserId">@profile.Firstname  @profile.Lastname</a></td>
-        <td>@profile.Birthday</td>
-    </tr>
-    }
-</table>
+    <p>
+        Search: @Html.TextBox("firstname") <br />
+        <!--<input type="text" name="search" />-->
+        <input type="submit" name="submit" value="Search" />
+    </p>
+}
+    </p>
+
+    <h2>Profiles</h2>
+    <table>
+        @foreach (var profile in Model.Profiles)
+        {
+            <tr>
+                <td><a class="list-group-item" href="/Profile/UserProfile/@profile.UserId">@profile.Firstname  @profile.Lastname</a></td>
+                <td>@profile.Birthday</td>
+            </tr>
+        }
+    </table>

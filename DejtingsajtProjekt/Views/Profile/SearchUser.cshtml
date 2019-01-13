@@ -10,11 +10,21 @@
         Search: @Html.TextBox("firstname") <br />
         <!--<input type="text" name="search" />-->
         <input type="submit" name="submit" value="Search" />
-        </p>
-        }
- </p>
-   
-    <div>
+    </p>
+}
+    </p>
+
+   <table>
+    @foreach (var profile in Model)
+    {
+        <tr>
+            <td><a class="list-group-item" href="/Profile/UserProfile/@profile.UserId">@profile.Firstname  @profile.Lastname</a></td>
+            <td>@profile.Birthday</td>
+        </tr>
+    }
+    </table>
+
+    @*<div>
         <table class="table">
             <tr>
                 <th>
@@ -42,6 +52,6 @@
                 </tr>
             }
         </table>
-    </div>
+    </div>*@
 
 
