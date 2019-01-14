@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 
 namespace DejtingsajtProjekt.Controllers
 {
-    
+
     public class ProfileController : Controller
     {
         // GET: Profile
@@ -28,6 +28,9 @@ namespace DejtingsajtProjekt.Controllers
             if (currentProfile != null)
             {
                 exists = true;
+            } else
+            {
+                return RedirectToAction("AddNewProfile", "Profile");
             }
 
             return View(new ProfileViewModels {
@@ -39,6 +42,36 @@ namespace DejtingsajtProjekt.Controllers
                 Exists = exists
             });
         }
+        public ActionResult AddNewProfile()
+        {
+            return View();
+        }
+        
+
+        [HttpPost]
+        public ActionResult AddNewProfile ([Bind(Include = "Firstname,Lastname,Birthday,Description")]ProfileAddViewModel viewModel){
+            if (ModelState.IsValid)
+            {
+                var profileCtx = new ProfileDbContext();
+                var currentUser = User.Identity.GetUserId();
+                var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+                var imgPath = "/images/placeholderImg.jpg";
+
+                profileCtx.Profiles.Add(new ProfileModel
+                {
+                    UserId = currentUser,
+                    Firstname = viewModel.Firstname,
+                    Lastname = viewModel.Lastname,
+                    Birthday = viewModel.Birthday.Value,
+                    Description = viewModel.Description,
+                    ImageName = imgPath
+                });
+                profileCtx.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            // return RedirectToAction("Index", "Profile");
+            return View(viewModel);
+        }
 
         //Redigerar användaren och dess profil
         [HttpPost]
@@ -49,42 +82,7 @@ namespace DejtingsajtProjekt.Controllers
             var currentUser = User.Identity.GetUserId();
             var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
 
-            //Eftersom man kan vara inloggad utan profil så kollar vi om det finns en profil
-            if (currentProfile == null)
-            {
-                //Om anv inte lägger till en bild så kommer placeholder att användas
-                var imgPath = "/images/placeholderImg.jpg";
-                if (file != null)
-                {
-                    if (file.ContentLength > 0)
-                    {
-                        string _FileName = Path.GetFileName(file.FileName);
-                        string _path = Path.Combine(Server.MapPath("~/images"), _FileName);
-                        file.SaveAs(_path);
-                        imgPath = "/images/" + _FileName;
-                        
-                    }
-                }
-                if(model.Firstname == null|| model.Lastname == null|| model.Birthday == null|| model.Description == null)
-                {
-                    ViewBag.Message = "You have to fill all boxes to create a profile!";
-                    return RedirectToAction("Index", "Profile");
-                }
-                profileCtx.Profiles.Add(new ProfileModel
-                {
-                    UserId = currentUser,
-                    Firstname = model.Firstname,
-                    Lastname = model.Lastname,
-                    Birthday = model.Birthday.Value,
-                    Description = model.Description,
-                    ImageName = imgPath
-                });
-                
-            }
 
-            //Finns en profil så handlar det bara om att redigera den
-            else
-            {
                 currentProfile.Firstname = model.Firstname ?? currentProfile.Firstname;
                 currentProfile.Lastname = model.Lastname ?? currentProfile.Lastname;
                 currentProfile.Description = model.Description ?? currentProfile.Description;
@@ -109,7 +107,7 @@ namespace DejtingsajtProjekt.Controllers
                 }
                
 
-            }
+            
 
 
                 profileCtx.SaveChanges();

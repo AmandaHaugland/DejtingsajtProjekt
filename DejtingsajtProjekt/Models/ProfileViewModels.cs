@@ -52,4 +52,25 @@ namespace DejtingsajtProjekt.Models
 
         public string Reciver { get; set; }
     }
+
+    public class ProfileAddViewModel
+    {
+        [Required]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
+        [StringLength(60, MinimumLength = 3)]
+        public string Firstname { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
+        [StringLength(60, MinimumLength = 3)]
+        public string Lastname { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime? Birthday { get; set; }
+
+        [Required]
+        [StringLength(300, MinimumLength = 3)]
+        public string Description { get; set; }
+    }
 }
