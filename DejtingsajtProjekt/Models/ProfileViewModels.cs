@@ -73,4 +73,27 @@ namespace DejtingsajtProjekt.Models
         [StringLength(300, MinimumLength = 3)]
         public string Description { get; set; }
     }
+
+    public class ProfileUpdateViewModel
+    {
+        
+        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
+        [StringLength(60, MinimumLength = 3)]
+        public string Firstname { get; set; }
+        
+        [RegularExpression(@"^[A-Z]+[a-zA-Z'\s]*$")]
+        [StringLength(60, MinimumLength = 3)]
+        public string Lastname { get; set; }
+
+      
+        [DataType(DataType.Date)]
+        public DateTime? Birthday { get; set; }
+
+        
+        [StringLength(300, MinimumLength = 3)]
+        public string Description { get; set; }
+
+        public string ImageName { get; set; }
+
+    }
 }

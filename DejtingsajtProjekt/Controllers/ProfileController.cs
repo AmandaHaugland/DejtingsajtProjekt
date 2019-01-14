@@ -76,7 +76,7 @@ namespace DejtingsajtProjekt.Controllers
         //Redigerar användaren och dess profil
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ProfileViewModels model,  HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Firstname,Lastname,Birthday,Description")]ProfileUpdateViewModel model,  HttpPostedFileBase file)
         {
             var profileCtx = new ProfileDbContext();
             var currentUser = User.Identity.GetUserId();
@@ -101,6 +101,7 @@ namespace DejtingsajtProjekt.Controllers
                     file.SaveAs(_path);
                     var imgNameToSave = "/images/" + _FileName;
                     profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser).ImageName = imgNameToSave;
+               
                 } else
                 {
                     currentProfile.ImageName = model.ImageName;
@@ -360,6 +361,8 @@ namespace DejtingsajtProjekt.Controllers
                 return View(fullList);
             
         }
+
+      
 
     }
 
