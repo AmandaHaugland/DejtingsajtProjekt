@@ -76,7 +76,7 @@ namespace DejtingsajtProjekt.Controllers
         //Redigerar användaren och dess profil
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Firstname,Lastname,Birthday,Description")]ProfileUpdateViewModel model,  HttpPostedFileBase file)
+        public ActionResult Edit([Bind(Include = "Firstname,Lastname,Birthday,Description")]ProfileUpdateViewModel model)
         {
             var profileCtx = new ProfileDbContext();
             var currentUser = User.Identity.GetUserId();
@@ -94,18 +94,18 @@ namespace DejtingsajtProjekt.Controllers
                 {
                     currentProfile.Birthday = model.Birthday.Value;
                 }
-                if (file.ContentLength > 0)
-                {
-                    string _FileName = Path.GetFileName(file.FileName);
-                    string _path = Path.Combine(Server.MapPath("~/images"), _FileName);
-                    file.SaveAs(_path);
-                    var imgNameToSave = "/images/" + _FileName;
-                    profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser).ImageName = imgNameToSave;
+                //if (file.ContentLength > 0)
+                //{
+                //    string _FileName = Path.GetFileName(file.FileName);
+                //    string _path = Path.Combine(Server.MapPath("~/images"), _FileName);
+                //    file.SaveAs(_path);
+                //    var imgNameToSave = "/images/" + _FileName;
+                //    profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser).ImageName = imgNameToSave;
                
-                } else
-                {
-                    currentProfile.ImageName = model.ImageName;
-                }
+                //} else
+                //{
+                //    currentProfile.ImageName = model.ImageName;
+                //}
                
 
             
@@ -362,7 +362,30 @@ namespace DejtingsajtProjekt.Controllers
             
         }
 
-      
+      [HttpPost]
+      public ActionResult EditImage(ProfileUpdateViewModel model,HttpPostedFileBase file)
+        {
+            var profileCtx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+
+            if (file.ContentLength > 0)
+            {
+                string _FileName = Path.GetFileName(file.FileName);
+                string _path = Path.Combine(Server.MapPath("~/images"), _FileName);
+                file.SaveAs(_path);
+                var imgNameToSave = "/images/" + _FileName;
+                profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser).ImageName = imgNameToSave;
+
+            }
+            else
+            {
+                currentProfile.ImageName = model.ImageName;
+            }
+            profileCtx.SaveChanges();
+            return RedirectToAction("Index", "Profile");
+        }
+        
 
     }
 
