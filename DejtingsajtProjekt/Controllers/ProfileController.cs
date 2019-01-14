@@ -16,6 +16,7 @@ namespace DejtingsajtProjekt.Controllers
     public class ProfileController : Controller
     {
         // GET: Profile
+        //Skickar tillbaka information om den inloggade användaren
         [Authorize]
         public ActionResult Index()
         {
@@ -39,6 +40,7 @@ namespace DejtingsajtProjekt.Controllers
             });
         }
 
+        //Redigerar användaren och dess profil
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProfileViewModels model,  HttpPostedFileBase file)
@@ -47,8 +49,10 @@ namespace DejtingsajtProjekt.Controllers
             var currentUser = User.Identity.GetUserId();
             var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
 
+            //Eftersom man kan vara inloggad utan profil så kollar vi om det finns en profil
             if (currentProfile == null)
             {
+                //Om anv inte lägger till en bild så kommer placeholder att användas
                 var imgPath = "/images/placeholderImg.jpg";
                 if (file != null)
                 {
@@ -73,6 +77,7 @@ namespace DejtingsajtProjekt.Controllers
                 
             }
 
+            //Finns en profil så handlar det bara om att redigera den
             else
             {
                 currentProfile.Firstname = model.Firstname ?? currentProfile.Firstname;
@@ -127,7 +132,7 @@ namespace DejtingsajtProjekt.Controllers
         }
 
 
-
+        //Här får man en lista med alla profiler
         public ActionResult ProfileList()
         {
             var ctx = new ProfileDbContext();
@@ -138,6 +143,7 @@ namespace DejtingsajtProjekt.Controllers
             return View(viewModel);
         }
 
+        //Skicka in ett id och få profilen som tillhör id
         [Authorize]
         public ActionResult UserProfile(string id)
         {
@@ -238,6 +244,7 @@ namespace DejtingsajtProjekt.Controllers
             return View(listOfFriends);
         }
 
+        //Lägg till en vän
         public ActionResult AcceptFriend (int requestId)
         {
             var ctx = new ProfileDbContext();
@@ -245,12 +252,12 @@ namespace DejtingsajtProjekt.Controllers
             var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
 
             var request = currentProfile.Friends.FirstOrDefault(r => r.FriendId == requestId);
-
+            //Nu är det inte en förfrågan utan vän
             request.FriendshipAccepted = true;
 
             var senderProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == request.Sender);
 
-
+            //Lägg till i den som har skickat förfrågans vännlista också
             senderProfile.Friends.Add(new Friend
             {
 
@@ -265,6 +272,7 @@ namespace DejtingsajtProjekt.Controllers
             return RedirectToAction("FriendList");
         }
 
+        //Ta bort vän
         public ActionResult RemoveFriend (int requestId)
         {
             var ctx = new ProfileDbContext();
@@ -274,7 +282,7 @@ namespace DejtingsajtProjekt.Controllers
             var request = currentProfile.Friends.FirstOrDefault(r => r.FriendId == requestId);
 
             
-
+            //Om det finns i en annan använadres lista så ska den också tas bort där.
             var otherProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == request.Sender);
             var otherRequest = otherProfile.Friends.FirstOrDefault(p => p.Sender == currentUser);
             if(otherRequest != null)
@@ -286,6 +294,7 @@ namespace DejtingsajtProjekt.Controllers
             return RedirectToAction("FriendList");
         }
 
+        //Får fram antalet vänförfrågningar
         public string NumberOfFriendRequests()
         {
             var ctx = new ProfileDbContext();
@@ -324,11 +333,11 @@ namespace DejtingsajtProjekt.Controllers
 
         }
 
+
+        //Hämtar ut upp till 5 användare att presentera på framsidan
         public ActionResult _GetFiveUsers()
         {
-            
-                var ctx = new ProfileDbContext();
-
+            var ctx = new ProfileDbContext();
             var fullList = new ProfileListViewModel();
             if (ctx.Profiles.Count() >= 5)
             {
