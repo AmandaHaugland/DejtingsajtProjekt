@@ -47,7 +47,7 @@ namespace DejtingsajtProjekt.Controllers
             return View();
         }
         
-
+        //Används när man ska skapa profil för första gången
         [HttpPost]
         public ActionResult AddNewProfile ([Bind(Include = "Firstname,Lastname,Birthday,Description")]ProfileAddViewModel viewModel){
             if (ModelState.IsValid)
@@ -56,7 +56,7 @@ namespace DejtingsajtProjekt.Controllers
                 var currentUser = User.Identity.GetUserId();
                 var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
                 var imgPath = "/images/placeholderImg.jpg";
-
+                //När profilen skapas sätts en bild
                 profileCtx.Profiles.Add(new ProfileModel
                 {
                     UserId = currentUser,
@@ -69,7 +69,7 @@ namespace DejtingsajtProjekt.Controllers
                 profileCtx.SaveChanges();
                 return RedirectToAction("Index");
             }
-            // return RedirectToAction("Index", "Profile");
+           
             return View(viewModel);
         }
 
@@ -94,22 +94,6 @@ namespace DejtingsajtProjekt.Controllers
                 {
                     currentProfile.Birthday = model.Birthday.Value;
                 }
-                //if (file.ContentLength > 0)
-                //{
-                //    string _FileName = Path.GetFileName(file.FileName);
-                //    string _path = Path.Combine(Server.MapPath("~/images"), _FileName);
-                //    file.SaveAs(_path);
-                //    var imgNameToSave = "/images/" + _FileName;
-                //    profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser).ImageName = imgNameToSave;
-               
-                //} else
-                //{
-                //    currentProfile.ImageName = model.ImageName;
-                //}
-               
-
-            
-
 
                 profileCtx.SaveChanges();
                 return RedirectToAction("Index", "Profile");
@@ -117,35 +101,7 @@ namespace DejtingsajtProjekt.Controllers
             
         }
 
-       
 
-        public bool CheckCurrentProfile()
-        {
-            var profileCtx = new ProfileDbContext();
-            var currentUser = User.Identity.GetUserId();
-            var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
-
-            if(currentProfile == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-
-        //Här får man en lista med alla profiler
-        public ActionResult ProfileList()
-        {
-            var ctx = new ProfileDbContext();
-
-            var viewModel = new ProfileListViewModel {
-                Profiles = ctx.Profiles.ToList() };
-
-            return View(viewModel);
-        }
 
         //Skicka in ett id och få profilen som tillhör id
         [Authorize]
@@ -182,7 +138,7 @@ namespace DejtingsajtProjekt.Controllers
             var currentUser = User.Identity.GetUserId();
             var recieverProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == id);
 
-
+            //Skickar en förfrågan som ej är godkänd till mottagaren
             recieverProfile.Friends.Add(new Friend
             {
 
@@ -198,12 +154,14 @@ namespace DejtingsajtProjekt.Controllers
 
         }
 
+        //Tar fram en lista på de senders vars förfrågan fortfarande är satt till false, alltså friendRequests
         public ActionResult FriendRequest()
         {
             var ctx = new ProfileDbContext();
             var currentUser = User.Identity.GetUserId();
             var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
 
+            //Alla de som inte har fått godkända förfrågningar till en lista
             var listOfProfilesInFriendList = currentProfile.Friends.Where(f => !f.FriendshipAccepted);
             var listOfFriends = new List<FriendListViewModel>();
             foreach (var friend in listOfProfilesInFriendList)
@@ -224,6 +182,8 @@ namespace DejtingsajtProjekt.Controllers
             return View(listOfFriends);
         }
 
+
+        //Tar till motsats från friendrequest() fram de senders vars förfrågan är godkänd
         public ActionResult FriendList()
         {
             var ctx = new ProfileDbContext();
@@ -293,6 +253,7 @@ namespace DejtingsajtProjekt.Controllers
             if(otherRequest != null)
             {
                 otherProfile.Friends.Remove(otherRequest);
+               
             }
             currentProfile.Friends.Remove(request);
             ctx.SaveChanges();
@@ -300,6 +261,7 @@ namespace DejtingsajtProjekt.Controllers
         }
 
         //Får fram antalet vänförfrågningar
+        //Används för att alltid kunna vias antalet förfrågningar
         public string NumberOfFriendRequests()
         {
             var ctx = new ProfileDbContext();
@@ -323,7 +285,7 @@ namespace DejtingsajtProjekt.Controllers
      
 
      
-
+        //Används för att söka upp 
         public ActionResult SearchUser(string firstname, string lastname)
         {
             ProfileDbContext ctx = new ProfileDbContext();
@@ -362,6 +324,8 @@ namespace DejtingsajtProjekt.Controllers
             
         }
 
+
+        //Används när man ska ändra bild
       [HttpPost]
       public ActionResult EditImage(ProfileUpdateViewModel model,HttpPostedFileBase file)
         {

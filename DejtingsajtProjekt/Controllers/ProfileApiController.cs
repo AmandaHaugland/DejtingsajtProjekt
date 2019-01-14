@@ -12,6 +12,8 @@ namespace DejtingsajtProjekt.Controllers
     [RoutePrefix("api/profiles")]
     public class ProfileApiController : ApiController
     {
+        //Tar in ett meddelande och en mottagare för att skicka meddelande
+        ///api/profiles/message/add?reciverId= + reciverId + &messageText= + message
         [Route("message/add")]
         [HttpGet]
         public void AddMessage(string reciverId, string messageText)
@@ -30,6 +32,9 @@ namespace DejtingsajtProjekt.Controllers
             ctx.SaveChanges();
         }
 
+
+        //Hämtar meddelanden som tillhör den id som skickas in
+        ///api/profiles/message/show?reciverId= + reciverId 
         [Route("message/show")]
         [HttpGet]
         public MessageViewModel[] GetMessages(string reciverId)

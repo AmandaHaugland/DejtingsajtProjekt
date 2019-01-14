@@ -290,14 +290,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\UpdateProfile.cshtml" />
-    <Content Include="Views\Profile\ProfileList.cshtml" />
     <Content Include="Views\Profile\UserProfile.cshtml" />
     <Content Include="Views\Profile\FriendList.cshtml" />
     <Content Include="Views\Profile\FriendRequest.cshtml" />
     <Content Include="Views\Profile\SearchUser.cshtml" />
     <Content Include="Views\Profile\_GetFiveUsers.cshtml" />
     <Content Include="Views\Profile\AddNewProfile.cshtml" />
-    <Content Include="Views\Profile\Testing.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
