@@ -168,7 +168,8 @@ namespace DejtingsajtProjekt.Controllers
                          Lastname = profile?.Lastname,
                          Birthday = profile?.Birthday,
                          Description = profile?.Description,
-                         ProfileId = profile?.UserId
+                         ProfileId = profile?.UserId,
+                         ImageName = profile?.ImageName
                      });
             }
             

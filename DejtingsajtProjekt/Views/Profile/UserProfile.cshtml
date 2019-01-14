@@ -3,12 +3,12 @@
 @model ProfileViewModels
 
 
-@if (Model.ImageName != null)
-{
-    <img src="@Model.ImageName" alt="Image" style="height:200px;width:200px;" />
-}
+
+    <br/>
+<img src="@Model.ImageName" alt="Image" style="height:200px;width:200px;" />
 <h2> @Model.Firstname @Model.Lastname 's Profile</h2> <br />
 <input type="button" value="Send a friendrequest" onclick="location.href='@Url.Action("SendFriendRequest", "Profile", new { id = Model.ProfileId } )'" />
+
 <h3>Birthday @Model.Birthday</h3>
 <p>
     @Model.Description
