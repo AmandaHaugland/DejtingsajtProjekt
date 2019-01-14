@@ -72,6 +72,15 @@ namespace DejtingsajtProjekt.Controllers
                 Logins = await UserManager.GetLoginsAsync(userId),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
+           
+            var profileCtx = new ProfileDbContext();
+            var currentUser = User.Identity.GetUserId();
+            var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
+            if (currentProfile == null)
+            {
+                return RedirectToAction("AddNewProfile", "Profile");
+            }
+
             return View(model);
         }
 

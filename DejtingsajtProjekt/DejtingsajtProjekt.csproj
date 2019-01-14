@@ -296,7 +296,6 @@
     <Content Include="Views\Profile\FriendRequest.cshtml" />
     <Content Include="Views\Profile\SearchUser.cshtml" />
     <Content Include="Views\Profile\_GetFiveUsers.cshtml" />
-    <Content Include="Views\Profile\AddProfile.cshtml" />
     <Content Include="Views\Profile\AddNewProfile.cshtml" />
     <Content Include="Views\Profile\Testing.cshtml" />
   </ItemGroup>
