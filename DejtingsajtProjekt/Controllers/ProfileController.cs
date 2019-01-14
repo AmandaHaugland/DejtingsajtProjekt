@@ -65,6 +65,11 @@ namespace DejtingsajtProjekt.Controllers
                         
                     }
                 }
+                if(model.Firstname == null|| model.Lastname == null|| model.Birthday == null|| model.Description == null)
+                {
+                    ViewBag.Message = "You have to fill all boxes to create a profile!";
+                    return RedirectToAction("Index", "Profile");
+                }
                 profileCtx.Profiles.Add(new ProfileModel
                 {
                     UserId = currentUser,
