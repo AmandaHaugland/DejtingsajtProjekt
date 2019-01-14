@@ -12,10 +12,11 @@ using Microsoft.AspNet.Identity;
 
 namespace DejtingsajtProjekt.Controllers
 {
-    //[Authorize]
+    
     public class ProfileController : Controller
     {
         // GET: Profile
+        //Skickar tillbaka information om den inloggade användaren
         [Authorize]
         public ActionResult Index()
         {
@@ -35,11 +36,11 @@ namespace DejtingsajtProjekt.Controllers
                 Birthday = currentProfile?.Birthday,
                 Description = currentProfile?.Description,
                 ImageName = currentProfile?.ImageName,
-               // ImageName = currentProfile?.ImageName,
                 Exists = exists
             });
         }
 
+        //Redigerar användaren och dess profil
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProfileViewModels model,  HttpPostedFileBase file)
@@ -48,31 +49,11 @@ namespace DejtingsajtProjekt.Controllers
             var currentUser = User.Identity.GetUserId();
             var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
 
-            //          //använder SQL för att spara och redigera bilden 
-            //           string mainconn = ConfigurationManager.ConnectionStrings["ProfileDB"].ConnectionString;
-            //           SqlConnection sqlConn = new SqlConnection(mainconn);
-            //           string sqlQuery = "update [dbo].[ProfileModels] set ImageName = '" +"/images/"+ file.FileName + "' where UserId = '" +currentUser+"'";
-            //           SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
-            //         // string sqlSelect = "select ImageName from [dbo].[ProfileModels] where UserId = ' "+currentUser+"'";
-
-            //Om det finns något i filen
-   /////  try
-   /////  {
-   /////      if(file.ContentLength > 0)
-   /////          {
-   /////              string _FileName = Path.GetFileName(file.FileName);
-   /////              string _path = Path.Combine(Server.MapPath("~/images"), _FileName);
-   /////              file.SaveAs(_path);
-   /////          }
-   /////  } catch
-   /////  {
-   /////      ViewBag.Message = "Something went wrong when trying to upload";
-   /////  }
-           
-
+            //Eftersom man kan vara inloggad utan profil så kollar vi om det finns en profil
             if (currentProfile == null)
             {
-                var imgPath = "~/images/placeholderImg.jpg";
+                //Om anv inte lägger till en bild så kommer placeholder att användas
+                var imgPath = "/images/placeholderImg.jpg";
                 if (file != null)
                 {
                     if (file.ContentLength > 0)
@@ -83,6 +64,11 @@ namespace DejtingsajtProjekt.Controllers
                         imgPath = "/images/" + _FileName;
                         
                     }
+                }
+                if(model.Firstname == null|| model.Lastname == null|| model.Birthday == null|| model.Description == null)
+                {
+                    ViewBag.Message = "You have to fill all boxes to create a profile!";
+                    return RedirectToAction("Index", "Profile");
                 }
                 profileCtx.Profiles.Add(new ProfileModel
                 {
@@ -96,17 +82,7 @@ namespace DejtingsajtProjekt.Controllers
                 
             }
 
- //           //För att hämta bild namnet och spara den
- //             sqlConn.Open();
- //
- //             if (file != null && file.ContentLength > 0)
- //             {
- //                 string filename = Path.GetFileName(file.FileName);
- //                 string imagePath = Path.Combine(Server.MapPath("/images/"), filename);
- //                 file.SaveAs(imagePath);
- //            }
-
-
+            //Finns en profil så handlar det bara om att redigera den
             else
             {
                 currentProfile.Firstname = model.Firstname ?? currentProfile.Firstname;
@@ -131,28 +107,10 @@ namespace DejtingsajtProjekt.Controllers
                 {
                     currentProfile.ImageName = model.ImageName;
                 }
-                // currentProfile.ImageName = model.ImageName;
-                /*{
-                    currentProfile.Firstname = model.Firstname ?? currentProfile.Firstname;
-                    currentProfile.Lastname = model.Lastname ?? currentProfile.Lastname;
-                    currentProfile.Description = model.Description ?? currentProfile.Description;
-                    if (model.Birthday == null)
-                    {
-                        currentProfile.Birthday = currentProfile.Birthday;
-                    }
-                    else
-                    {
-                        currentProfile.Birthday = model.Birthday.Value;
-                    }
-
-                    currentProfile.ImageName = model.ImageName;*/
+               
 
             }
 
-   //             sqlCommandet.Parameters.AddWithValue("@ImageName", "/images/" + file.FileName);
-   //             sqlCommandet.ExecuteNonQuery();
-   //             sqlConn.Close();
-   //
 
                 profileCtx.SaveChanges();
                 return RedirectToAction("Index", "Profile");
@@ -178,15 +136,8 @@ namespace DejtingsajtProjekt.Controllers
             }
         }
 
-       //För att redigera anvendarens profil
-      /*  public ActionResult EditProfile ()
-        {
-            ProfileViewModels modell;
-            modell = new ProfileViewModels();
-            return View(modell);
-        }*/
 
-
+        //Här får man en lista med alla profiler
         public ActionResult ProfileList()
         {
             var ctx = new ProfileDbContext();
@@ -197,6 +148,7 @@ namespace DejtingsajtProjekt.Controllers
             return View(viewModel);
         }
 
+        //Skicka in ett id och få profilen som tillhör id
         [Authorize]
         public ActionResult UserProfile(string id)
         {
@@ -228,7 +180,6 @@ namespace DejtingsajtProjekt.Controllers
         {
             var ctx = new ProfileDbContext();
             var currentUser = User.Identity.GetUserId();
-           // var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
             var recieverProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == id);
 
 
@@ -298,6 +249,7 @@ namespace DejtingsajtProjekt.Controllers
             return View(listOfFriends);
         }
 
+        //Lägg till en vän
         public ActionResult AcceptFriend (int requestId)
         {
             var ctx = new ProfileDbContext();
@@ -305,12 +257,12 @@ namespace DejtingsajtProjekt.Controllers
             var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
 
             var request = currentProfile.Friends.FirstOrDefault(r => r.FriendId == requestId);
-
+            //Nu är det inte en förfrågan utan vän
             request.FriendshipAccepted = true;
 
             var senderProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == request.Sender);
 
-
+            //Lägg till i den som har skickat förfrågans vännlista också
             senderProfile.Friends.Add(new Friend
             {
 
@@ -325,6 +277,7 @@ namespace DejtingsajtProjekt.Controllers
             return RedirectToAction("FriendList");
         }
 
+        //Ta bort vän
         public ActionResult RemoveFriend (int requestId)
         {
             var ctx = new ProfileDbContext();
@@ -334,7 +287,7 @@ namespace DejtingsajtProjekt.Controllers
             var request = currentProfile.Friends.FirstOrDefault(r => r.FriendId == requestId);
 
             
-
+            //Om det finns i en annan använadres lista så ska den också tas bort där.
             var otherProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == request.Sender);
             var otherRequest = otherProfile.Friends.FirstOrDefault(p => p.Sender == currentUser);
             if(otherRequest != null)
@@ -346,6 +299,7 @@ namespace DejtingsajtProjekt.Controllers
             return RedirectToAction("FriendList");
         }
 
+        //Får fram antalet vänförfrågningar
         public string NumberOfFriendRequests()
         {
             var ctx = new ProfileDbContext();
@@ -368,58 +322,7 @@ namespace DejtingsajtProjekt.Controllers
         }
      
 
-     /*  [HttpPost]
-        public ActionResult EditImage( HttpPostedFileBase file)
-        {
-          
-
-            
-            string mainconn = ConfigurationManager.ConnectionStrings["ProfileDB"].ConnectionString;
-            SqlConnection sqlConn = new SqlConnection(mainconn);
-            string sqlQuery = "insert into [dbo].[ProfileModels] (ImageName) values (@ImageName) select UserId from [dbo].[ProfileModels] where Firstname = @Firstname  ";
-            SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
-
-            sqlConn.Open();
-
-            if (file != null && file.ContentLength > 0)
-            {
-                string filename = Path.GetFileName(file.FileName);
-                string imagePath = Path.Combine(Server.MapPath("/images/"), filename);
-                file.SaveAs(imagePath);
-            }
-            
-            sqlCommandet.Parameters.AddWithValue("@ImageName", "/images/" + file.FileName);
-            sqlCommandet.ExecuteNonQuery();
-            sqlConn.Close();
-
-            return RedirectToAction("Index", "Profile");
-
-
-        }*/
-
-        //public ActionResult ProfilImage()
-        //{
-        //    var profileCtx = new ProfileDbContext();
-        //    var currentUser = User.Identity.GetUserId();
-        //    var currentProfile = profileCtx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
-
-        //    string imageD = (string)Session["ProfileId"];
-        //    string mainconn = ConfigurationManager.ConnectionStrings["ProfileDB"].ConnectionString;
-        //    SqlConnection sqlConn = new SqlConnection(mainconn);
-        //    string sqlQuery = "select ImageName from  [dbo].[ProfileModels] where UserId='" + currentUser+ "'";
-        //    sqlConn.Open();
-        //    SqlCommand sqlCommandet = new SqlCommand(sqlQuery, sqlConn);
-        //    sqlCommandet.Parameters.AddWithValue("UserId", Session["ProfileId"].ToString());
-        //    SqlDataReader sdr = sqlCommandet.ExecuteReader();
-        //    if (sdr.Read())
-        //    {
-        //        string s = sdr["ImageName"].ToString();
-        //        ViewData["Img"] = s;
-        //    }
-
-        //    sqlConn.Close();
-        //    return View();
-        //}
+     
 
         public ActionResult SearchUser(string firstname, string lastname)
         {
@@ -435,28 +338,11 @@ namespace DejtingsajtProjekt.Controllers
 
         }
 
+
+        //Hämtar ut upp till 5 användare att presentera på framsidan
         public ActionResult _GetFiveUsers()
         {
-            /*var ctx = new ProfileDbContext();
-
-            var list = new List<ProfileViewModels>();
-            foreach(var p in ctx.Profiles)
-            {
-                var profileToAdd = new ProfileViewModels
-                {
-                    Lastname = p.Lastname,
-                    Firstname = p.Firstname,
-                    ProfileId = p.UserId
-                };
-                list.Add(profileToAdd);
-            }
-
-            var fiveUsers = list.Take(5);
-
-            return View(fiveUsers);*/
-            
-                var ctx = new ProfileDbContext();
-
+            var ctx = new ProfileDbContext();
             var fullList = new ProfileListViewModel();
             if (ctx.Profiles.Count() >= 5)
             {

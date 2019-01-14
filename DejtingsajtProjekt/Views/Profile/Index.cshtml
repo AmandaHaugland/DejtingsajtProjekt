@@ -6,6 +6,8 @@
 
     ViewBag.Title = "Profile";
 }
+
+<br/>
 <div>
     @if (Model.ImageName != null)
     {
@@ -15,16 +17,14 @@
 
 </div> <br />
 
-@if (HttpContext.Current.User.Identity.Name != null)
-{
 
-    var doesProfileExist = Model.Exists;
+    @{var doesProfileExist = Model.Exists; }
 
-    if (doesProfileExist)
+   @if (doesProfileExist)
 
 
     {
-       // <h2>Profile</h2>
+        <h2>My Profile</h2>
 
         <div>
 
@@ -61,12 +61,7 @@
                 </dd>
             </dl>
         </div>
-        @*<div>
-                @if (Model.ImageName != null )
-                {
-                    <img src="@Url.Content(Model.ImageName)" alt="Image" style="height:200px;width:200px;" />
-                }
-            </div>*@
+
         <h3>About me</h3>
         <p>@Html.DisplayFor(model => model.Description)</p>
 
@@ -79,9 +74,7 @@
             </thead>
             <tbody id="messages"></tbody>
         </table>
-        @*
-            <input type="hidden" id="reciver-id" value="@Model.ProfileId" />
-        *@
+
 
 
 
@@ -89,33 +82,14 @@
     else
     {
         <div>
-        <h2> Create your profile to get started!</h2>
-        @Html.Partial("UpdateProfile")
+            <h2> Create your profile to get started!</h2>
+            @Html.Partial("UpdateProfile")
+            @ViewBag.Message
 
         </div>
     }
-}
-else
-{
-    /*Detta funkar inte just nu.....*/
-    <h2>Get started</h2>
-    <p>Create an account today to get started, or login to admire your profile!</p>
-    <button>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</button>
-    <Button>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</Button>
 
-}
 
-@*<div>
-    @if (Model.ImageName != null)
-    {
-        <img src="@Url.Content(Model.ImageName)" alt="Image" style="height:200px;width:200px;" />
-    }
-</div>*@
-
-<p>
-    @Html.ActionLink("Edit", "", new { /* id = Model.PrimaryKey */ })
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 @section scripts {
     <script>
