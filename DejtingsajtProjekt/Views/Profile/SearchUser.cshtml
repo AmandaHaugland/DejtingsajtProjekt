@@ -4,13 +4,11 @@
 }
 <h2>SearchUser</h2>
 <p>
-    @using (Html.BeginForm(/*"SearchUser", "Profile", FormMethod.Get*/))
+    @using (Html.BeginForm())
     {
 <p>
     Search firstname: @Html.TextBox("firstname") <br />
-
     Search Lastame:@Html.TextBox("lastname") <br />
-    <!--<input type="text" name="search" />-->
     <input type="submit" name="submit" value="Search" />
 </p>
 }
@@ -25,43 +23,16 @@
     @profile.Firstname  @profile.Lastname
                    <p>
                        @if (profile.ImageName != null)
-                       {<img src="@Url.Content(profile.ImageName)"  style="height:50px;width:50px;"/>}
+                       {
+                           <img src="@Url.Content(profile.ImageName)"  style="height:50px;width:50px;"/>
+                       }
                    </p>
-    </a></td>
-          
-           
+    </a>
+           </td> 
        </tr>
     }
     </table>
 
-    @*<div>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Firstname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Lastname)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Birthday)
-                </th>
-            </tr>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Firstname)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Lastname)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Birthday)
-                    </td>
-                </tr>
-            }
-        </table>
-    </div>*@
+ 
 
 
