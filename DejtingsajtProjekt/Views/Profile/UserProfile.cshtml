@@ -53,7 +53,7 @@
                 ev.preventDefault();
                 var reciverId = $('#reciver-id').val();
                 var message = $('#message-text').val();
-                if (message !== '' && message.match(/^[A-Za-z0-9]*$/)) {
+                if (message !== '' && message.match(/^[A-Za-z0-9\s]*$/) && message.length >= 3) {
                     //Kommer hit i alla fall. Sen går något inte..
                     // $.get('/api/profiles/message/add?reciverId=' + reciverId + '&messageText=' + message)
                     $.get('/api/profiles/message/add?reciverId=' + reciverId + '&messageText=' + message,
@@ -62,7 +62,7 @@
                         });
                 }
                 else {
-                    alert("Du kan bara skriva bokstäver och siffror ");
+                    alert("Meddelandet är kortare än 3 tecken eller du skrev otillåtna tecken! Skriv bokstäver och siffror ");
                 }
             });
 
