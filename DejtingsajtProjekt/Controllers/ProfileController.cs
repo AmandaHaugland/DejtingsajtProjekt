@@ -160,26 +160,34 @@ namespace DejtingsajtProjekt.Controllers
             var ctx = new ProfileDbContext();
             var currentUser = User.Identity.GetUserId();
             var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
-
-            //Alla de som inte har fått godkända förfrågningar till en lista
-            var listOfProfilesInFriendList = currentProfile.Friends.Where(f => !f.FriendshipAccepted);
-            var listOfFriends = new List<FriendListViewModel>();
-            foreach (var friend in listOfProfilesInFriendList)
+            if (currentProfile == null)
             {
-                var friendsProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == friend.Sender);
-                var friendModel = new FriendListViewModel
-                {
-                    Firstname = friendsProfile.Firstname,
-                    Lastname = friendsProfile.Lastname,
-                    UserId = friend.Reciver,
-                    RequestId = friend.FriendId
-
-                };
-                listOfFriends.Add(friendModel);
-
+                return RedirectToAction("Index");
             }
+            else
+            {
 
-            return View(listOfFriends);
+
+                //Alla de som inte har fått godkända förfrågningar till en lista
+                var listOfProfilesInFriendList = currentProfile.Friends.Where(f => !f.FriendshipAccepted);
+                var listOfFriends = new List<FriendListViewModel>();
+                foreach (var friend in listOfProfilesInFriendList)
+                {
+                    var friendsProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == friend.Sender);
+                    var friendModel = new FriendListViewModel
+                    {
+                        Firstname = friendsProfile.Firstname,
+                        Lastname = friendsProfile.Lastname,
+                        UserId = friend.Reciver,
+                        RequestId = friend.FriendId
+
+                    };
+                    listOfFriends.Add(friendModel);
+
+                }
+
+                return View(listOfFriends);
+            }
         }
 
 
@@ -190,6 +198,14 @@ namespace DejtingsajtProjekt.Controllers
             var currentUser = User.Identity.GetUserId();
             var currentProfile = ctx.Profiles.FirstOrDefault(p => p.UserId == currentUser);
 
+            if (currentProfile == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+
+            
             var listOfProfilesInFriendList = currentProfile.Friends.Where(f => f.FriendshipAccepted);
             var listOfFriends = new List<FriendListViewModel>();
            foreach(var friend in listOfProfilesInFriendList)
@@ -207,6 +223,7 @@ namespace DejtingsajtProjekt.Controllers
             }
 
             return View(listOfFriends);
+            }
         }
 
         //Lägg till en vän
